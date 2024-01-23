@@ -40,7 +40,7 @@ private final CANSparkMax frontLeftMotor;
      */
     public Command drive(double forward, double rotation) {
         return runEnd(() -> {
-            this.drive.arcadeDrive(Math.pow(forward, 3), Math.pow(rotation, 3));
+            this.drive.arcadeDrive(forward, rotation);
         }, this.drive::stopMotor);
     }
 }

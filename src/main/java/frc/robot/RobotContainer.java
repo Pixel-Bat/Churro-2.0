@@ -33,7 +33,7 @@ public class RobotContainer {
 
     // set the robot to default to the drive command
     this.drivetrain.setDefaultCommand(
-      this.drivetrain.drive(this.driveController.getLeftY(), this.driveController.getRightX()));
+      this.drivetrain.drive(Math.pow(this.driveController.getLeftY(), 3), Math.pow(this.driveController.getRightX(), 3)));
 
     // Configure the trigger bindings
     configureBindings();
