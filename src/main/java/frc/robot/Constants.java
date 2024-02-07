@@ -29,5 +29,10 @@ public final class Constants {
       public static final int backRightMotorCANID = 2;
       
     }
+    
+    public class IntakeID {
+      public static final int intakeMotorCANID = 11;
+    }
+    
   }
 }
