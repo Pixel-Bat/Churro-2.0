@@ -46,16 +46,16 @@ private final CANSparkMax frontLeftMotor;
 
         if (Robot.isReal()){
             // Define the motor ports and motor types as brushed
-            this.frontLeftMotor = new CANSparkMax(Constants.MotorCANID.frontLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
-            this.frontRightMotor = new CANSparkMax(Constants.MotorCANID.frontRightMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
-            this.backLeftMotor = new CANSparkMax(Constants.MotorCANID.backLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
-            this.backRightMotor = new CANSparkMax(Constants.MotorCANID.backRightMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
+            this.frontLeftMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.frontLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
+            this.frontRightMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.frontRightMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
+            this.backLeftMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.backLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
+            this.backRightMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.backRightMotorCANID, CANSparkLowLevel.MotorType.kBrushed);
         } else {
             // Define the motor ports and motor types as brushless
-            this.frontLeftMotor = new CANSparkMax(Constants.MotorCANID.frontLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-            this.frontRightMotor = new CANSparkMax(Constants.MotorCANID.frontRightMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-            this.backLeftMotor = new CANSparkMax(Constants.MotorCANID.backLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-            this.backRightMotor = new CANSparkMax(Constants.MotorCANID.backRightMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+            this.frontLeftMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.frontLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+            this.frontRightMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.frontRightMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+            this.backLeftMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.backLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+            this.backRightMotor = new CANSparkMax(Constants.MotorCANID.DrivetrainID.backRightMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
         }
         
         // Link the motors on the right and left
