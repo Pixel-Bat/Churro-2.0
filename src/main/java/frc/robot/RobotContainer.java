@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.subsystems.*;
 
+
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -22,6 +24,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain();
+
+  private final Intake intake = new Intake();
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
@@ -53,9 +57,9 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    driveController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    driveController.b().whileTrue(intake.grab());
+    driveController.a().whileTrue(intake.grab());
   }
 
   /**
