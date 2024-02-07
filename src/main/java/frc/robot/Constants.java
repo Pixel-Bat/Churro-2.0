@@ -18,10 +18,11 @@ public final class Constants {
   }
 
   public static class MotorCANID {
-    public static final int frontLeftMotorCANID = 1;
-    public static final int frontRightMotorCANID = 2;
-    public static final int backLeftMotorCANID = 3;
-    public static final int backRightMotorCANID = 4;
-    
+
+    // Can IDs for 2023 Robot, change when we get a new one
+    public static final int frontLeftMotorCANID = 3;
+    public static final int frontRightMotorCANID = 1;
+    public static final int backLeftMotorCANID = 4;
+    public static final int backRightMotorCANID = 2;
   }
 }
