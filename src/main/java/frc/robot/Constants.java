@@ -18,9 +18,6 @@ public final class Constants {
   }
 
   public static class MotorCANID {
-    /**
-     * InnerConstants
-     */
     public class DrivetrainID {
       // Can IDs for 2023 Robot, change when we make a new one
       public static final int frontLeftMotorCANID = 3;
@@ -30,7 +27,7 @@ public final class Constants {
       
     }
     
-    public class IntakeID {
+    public static class IntakeID {
       public static final int intakeMotorCANID = 11;
     }
     
