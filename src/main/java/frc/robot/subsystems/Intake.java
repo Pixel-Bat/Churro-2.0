@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.MotorCANID.IntakeID;
 
 public class Intake extends SubsystemBase{
     private final TalonSRX intakeMotor;
@@ -14,7 +14,7 @@ public class Intake extends SubsystemBase{
     private final double speed_out = -0.85;
 
     public Intake() {
-        this.intakeMotor = new TalonSRX(Constants.MotorCANID.IntakeID.intakeMotorCANID);
+        this.intakeMotor = new TalonSRX(IntakeID.intakeMotorCANID);
     }
 
     public Command grab() {
