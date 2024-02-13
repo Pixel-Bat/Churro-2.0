@@ -26,15 +26,17 @@ import frc.robot.Constants.RobotConstants;
 public class Drivetrain extends SubsystemBase{
 
     private final CANSparkMax m_frontLeftMotor = new CANSparkMax(MotorCANID.DrivetrainID.frontLeftMotorCANID, 
-    CANSparkLowLevel.MotorType.kBrushless);
+    CANSparkLowLevel.MotorType.kBrushed);
     private final CANSparkMax m_frontRightMotor = new CANSparkMax(MotorCANID.DrivetrainID.frontRightMotorCANID, 
-    CANSparkLowLevel.MotorType.kBrushless);
+    CANSparkLowLevel.MotorType.kBrushed);
 
     private final CANSparkMax m_backLeftMotor = new CANSparkMax(MotorCANID.DrivetrainID.backLeftMotorCANID, 
-    CANSparkLowLevel.MotorType.kBrushless);
+    CANSparkLowLevel.MotorType.kBrushed);
     private final CANSparkMax m_backRightMotor = new CANSparkMax(MotorCANID.DrivetrainID.backRightMotorCANID, 
-    CANSparkLowLevel.MotorType.kBrushless);
+    CANSparkLowLevel.MotorType.kBrushed);
 
+    /*
+     * 
     private final RelativeEncoder m_left = m_frontLeftMotor.getEncoder();
     private final RelativeEncoder m_right = m_frontRightMotor.getEncoder();
 
@@ -45,6 +47,8 @@ public class Drivetrain extends SubsystemBase{
         getLeftEncoderMeters(),
         getRightEncoderMeters()
     );
+
+    */
 
     private final DifferentialDrive m_drive = new DifferentialDrive(
         m_frontLeftMotor::set, 
@@ -72,15 +76,18 @@ public class Drivetrain extends SubsystemBase{
         m_backLeftMotor.follow(m_frontLeftMotor);
         m_backRightMotor.follow(m_frontRightMotor);
         
-        m_isRedAlliance = isRed( DriverStation.getRawAllianceStation());
 
-        configureAutoBuilder();
+        //remove this when adding gyro and auto stuff
+        m_isRedAlliance = null;
+        //m_isRedAlliance = isRed( DriverStation.getRawAllianceStation());
+
+        //configureAutoBuilder();
     }
 
    
     public void Periodic() {
-        m_odometry.update(null, getRightEncoderMeters(), getLeftEncoderMeters());
-        m_field.setRobotPose(getPose());
+        //m_odometry.update(null, getRightEncoderMeters(), getLeftEncoderMeters());
+        //m_field.setRobotPose(getPose());
         SmartDashboard.putData("Field", m_field);
     }
 
@@ -88,6 +95,8 @@ public class Drivetrain extends SubsystemBase{
         m_drive.arcadeDrive(throttle, rotation);
     }
 
+
+    /*
     public void driveWithChassisSpeeds(ChassisSpeeds speeds){
         double x = speeds.vxMetersPerSecond;
         double y = speeds.vyMetersPerSecond;
@@ -97,6 +106,9 @@ public class Drivetrain extends SubsystemBase{
         setSpeeds(wheelSpeeds);
     }
 
+    */
+
+    /*
     public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
         final double leftOutput =
             m_leftPIDController.calculate(getLeftEncoderMetersPerSecond(), speeds.leftMetersPerSecond);
@@ -106,6 +118,8 @@ public class Drivetrain extends SubsystemBase{
         m_frontRightMotor.setVoltage(rightOutput);
       }
 
+      */
+    /*
     public Pose2d getPose(){
         return m_odometry.getPoseMeters();
     }
@@ -150,7 +164,11 @@ public class Drivetrain extends SubsystemBase{
         return wheelRotations * distancePerRevolution;
     }
 
+    */
+
+    
     /* Creates a pathplanner autobuilder for autonomous pathing */
+    /*
     public void configureAutoBuilder() {
         AutoBuilder.configureRamsete(
         this::getPose, 
@@ -176,5 +194,6 @@ public class Drivetrain extends SubsystemBase{
       return false;
 
     }
-  
+    
+    */
 }
