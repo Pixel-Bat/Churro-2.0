@@ -56,6 +56,7 @@ public final class Constants {
     public static final double GEARBOX_STAGE_1 = 0;
     public static final double WHEEL_DIAMETER_IN = 0;
     public static final double GEARBOX_STAGE_2 = 0;
+    public static final double PULLEY_STAGE = 0;
     public static double ROBOT_WIDTH = 0.0; //put actual value here
   }
 
