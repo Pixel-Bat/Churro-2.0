@@ -29,7 +29,7 @@ private final CANSparkMax frontLeftMotor;
   private final CANSparkMax backLeftMotor;
   private final CANSparkMax backRightMotor;
 
-  private final DifferentialDrive drive;
+  private final DifferentialDrive m_drive;
 
     // Simulated objects for the sim odometry
     private final Encoder m_leftEncoder = new Encoder(1, 2);
@@ -63,7 +63,7 @@ private final CANSparkMax frontLeftMotor;
         this.backRightMotor.follow(frontRightMotor);
 
         // Set the differential drivetrain
-        this.drive = new DifferentialDrive(frontLeftMotor, frontRightMotor);
+        this.m_drive = new DifferentialDrive(frontLeftMotor, frontRightMotor);
 
         // Update simualtion field data
         SmartDashboard.putData("Field", m_field);
@@ -74,10 +74,8 @@ private final CANSparkMax frontLeftMotor;
      * @param forward
      * @param rotation
      */
-    public Command drive(double forward, double rotation) {
-        return runEnd(() -> {
-            this.drive.arcadeDrive(forward, rotation);
-        }, this.drive::stopMotor);
+    public void Drive(double throttle, double rotation) {
+        m_drive.arcadeDrive(throttle, rotation);
     }
 
     // // Update robot position for the sim

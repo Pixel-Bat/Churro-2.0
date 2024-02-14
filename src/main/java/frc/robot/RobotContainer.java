@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 
 
@@ -37,7 +38,8 @@ public class RobotContainer {
 
     // set the robot to default to the drive command
     this.drivetrain.setDefaultCommand(
-      this.drivetrain.drive(Math.pow(this.driveController.getLeftY(), 3), Math.pow(this.driveController.getRightX(), 3)));
+      new ArcadeDrive(drivetrain, () -> Math.pow(this.driveController.getLeftY(), 1.8), () -> Math.pow(this.driveController.getRightX(), 1.8)));
+      
 
     // Configure the trigger bindings
     configureBindings();
@@ -58,8 +60,8 @@ public class RobotContainer {
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
 
-    driveController.b().whileTrue(intake.grab());
-    driveController.a().whileTrue(intake.grab());
+    //driveController.b().whileTrue(intake.grab());
+    //driveController.a().whileTrue(intake.grab());
   }
 
   /**
