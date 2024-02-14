@@ -38,7 +38,7 @@ public class RobotContainer {
 
     // set the robot to default to the drive command
     this.drivetrain.setDefaultCommand(
-      new ArcadeDrive(drivetrain, () -> Math.pow(this.driveController.getLeftY(), 1.8), () -> Math.pow(this.driveController.getRightX(), 1.8)));
+      new ArcadeDrive(drivetrain, () -> (-Math.pow(this.driveController.getRightX(), 3)/1.25 ), () -> -Math.pow(this.driveController.getLeftY(), 3)));
       
 
     // Configure the trigger bindings
