@@ -40,6 +40,7 @@ public final class Constants {
     
     public class IntakeID {
       public static final int intakeMotorCANID = 11;
+      public static final int holdingMotorCANID = 12;
     }
     
   }

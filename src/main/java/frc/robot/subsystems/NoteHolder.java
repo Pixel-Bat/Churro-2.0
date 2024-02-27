@@ -16,7 +16,7 @@ public class NoteHolder extends SubsystemBase{
     private final double speed_out = -0.30;
     
     public NoteHolder() {
-        this.holdingMotor = new TalonSRX(IntakeID.intakeMotorCANID);
+        this.holdingMotor = new TalonSRX(IntakeID.holdingMotorCANID);
     }
     
     public Command intake() {
