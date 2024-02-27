@@ -10,13 +10,13 @@ import frc.robot.commands.ArcadeDrive;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import frc.robot.subsystems.*;
-import frc.robot.commands.*;
+
 
 
 
@@ -34,9 +34,7 @@ public class RobotContainer {
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final XboxController driveController = new XboxController(OperatorConstants.kDriverControllerPort);
-  private final XboxController operatorController = new XboxController(OperatorConstants.kOperatorControllerPort);
-
+  private final CommandXboxController driveController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -52,24 +50,20 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new ArcadeDrive(
         drivetrain,
-        () -> OperatorConstants.THROTTLE_FACTOR * driveController.getRawAxis(OperatorConstants.LEFT_Y),
-        () -> OperatorConstants.ROTATION_FACTOR * driveController.getRawAxis(OperatorConstants.RIGHT_X)
+        () -> -Math.pow(this.driveController.getRightX(), 3)/1.25,
+        () -> -Math.pow(this.driveController.getLeftY(), 3)
       )
     );
 
   }
 
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    //new Trigger(m_exampleSubsystem::exampleCondition)
-    //  .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    //driveController.b().whileTrue(intake.grab());
-    //driveController.a().whileTrue(intake.grab());
+    driveController.b(null).whileTrue(intake.grab());
+    driveController.a().whileTrue(intake.release());
   }
 
-    private void setupAutoChoosers(){ 
-    //new PathPlannerAuto("Example Auto");
+  private void setupAutoChoosers(){ 
+    new PathPlannerAuto("Example Auto");
     SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
