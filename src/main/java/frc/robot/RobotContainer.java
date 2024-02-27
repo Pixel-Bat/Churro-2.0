@@ -58,7 +58,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    driveController.b(null).whileTrue(intake.grab());
+    driveController.b().whileTrue(intake.grab());
     driveController.a().whileTrue(intake.release());
   }
 
