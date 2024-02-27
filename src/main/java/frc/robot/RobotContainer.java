@@ -30,7 +30,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain();
 
-  private final Intake intake = new Intake();
+  private final ShooterIntake intake = new ShooterIntake();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -58,8 +58,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    driveController.b().whileTrue(intake.grab());
-    driveController.a().whileTrue(intake.release());
+    driveController.b().whileTrue(intake.intake());
+    driveController.a().whileTrue(intake.shoot());
   }
 
   private void setupAutoChoosers(){ 
