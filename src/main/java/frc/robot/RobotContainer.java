@@ -5,11 +5,15 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.ArcadeDrive;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
@@ -30,33 +34,43 @@ public class RobotContainer {
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController driveController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final XboxController driveController = new XboxController(OperatorConstants.kDriverControllerPort);
+  private final XboxController operatorController = new XboxController(OperatorConstants.kOperatorControllerPort);
+
+  private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    // set the robot to default to the drive command
-    this.drivetrain.setDefaultCommand(
-      new ArcadeDrive(drivetrain, () -> (-Math.pow(this.driveController.getRightX(), 3)/1.25 ), () -> -Math.pow(this.driveController.getLeftY(), 3)));
-      
-
     // Configure the trigger bindings
+    setupDefaultCommands();
     configureBindings();
+    setupAutoChoosers();
   }
 
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
-   */
+  private void setupDefaultCommands(){
+    drivetrain.setDefaultCommand(
+      new ArcadeDrive(
+        drivetrain,
+        () -> OperatorConstants.THROTTLE_FACTOR * driveController.getRawAxis(OperatorConstants.LEFT_Y),
+        () -> OperatorConstants.ROTATION_FACTOR * driveController.getRawAxis(OperatorConstants.RIGHT_X)
+      )
+    );
+
+  }
+
   private void configureBindings() {
+    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    //new Trigger(m_exampleSubsystem::exampleCondition)
+    //  .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     //driveController.b().whileTrue(intake.grab());
     //driveController.a().whileTrue(intake.grab());
+  }
+
+    private void setupAutoChoosers(){ 
+    //new PathPlannerAuto("Example Auto");
+    SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
   /**
@@ -65,7 +79,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    
-    return null;
+    // An example command will be run in autonomous
+    return autoChooser.getSelected();
   }
 }
