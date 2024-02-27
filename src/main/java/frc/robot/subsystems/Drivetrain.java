@@ -34,12 +34,12 @@ private final CANSparkMax frontLeftMotor;
   private final CANSparkMax backLeftMotor;
   private final CANSparkMax backRightMotor;
 
-  private final DifferentialDrive m_drive;
+  //private final DifferentialDrive m_drive;
 
     // Simulated objects for the sim odometry
     private final Encoder m_leftEncoder = new Encoder(0, 1);
     private final Encoder m_rightEncoder = new Encoder(2, 3);
-    private final AnalogGyro m_gyro = new AnalogGyro(1);
+    //private final AnalogGyro m_gyro = new AnalogGyro(1);
     private final CANSparkMax m_frontLeftMotor = new CANSparkMax(MotorCANID.DrivetrainID.frontLeftMotorCANID, 
     CANSparkLowLevel.MotorType.kBrushless);
     private final CANSparkMax m_frontRightMotor = new CANSparkMax(MotorCANID.DrivetrainID.frontRightMotorCANID, 
@@ -101,7 +101,7 @@ private final CANSparkMax frontLeftMotor;
         this.backRightMotor.follow(frontRightMotor);
 
         // Set the differential drivetrain
-        this.m_drive = new DifferentialDrive(frontLeftMotor, frontRightMotor);
+        //this.m_drive = new DifferentialDrive(frontLeftMotor, frontRightMotor);
         m_backLeftMotor.follow(m_frontLeftMotor);
         m_backRightMotor.follow(m_frontRightMotor);
         
