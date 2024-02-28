@@ -18,38 +18,6 @@ public final class Constants {
     // Ports
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
-
-    // Buttons
-    public static final int A_BUTTON = 1;  
-    public static final int B_BUTTON = 2; 
-    public static final int X_BUTTON = 3;
-    public static final int Y_BUTTON = 4;
-    public static final int LEFT_BUMPER = 5;
-    public static final int RIGHT_BUMPER = 6; 
-    public static final int BACK = 7;
-    public static final int START = 8; 
-    public static final int LEFT_STICK = 9;
-    public static final int RIGHT_STICK = 10;
-
-    public static final int POV_UP = 0;
-    public static final int POV_LEFT = 270;
-    public static final int POV_DOWN = 180;
-    public static final int POV_RIGHT = 90;
-
-    // Axis
-    public static final int LEFT_X = 0;
-    public static final int LEFT_Y = 1;
-    public static final int LEFT_TRIGGER = 2;
-    public static final int RIGHT_TRIGGER = 3;
-    public static final int RIGHT_X = 4;
-    public static final int RIGHT_Y = 5;
-    
-     // Trigger Control
-    public static final double DIGITAL_TRIGGER_THRESHOLD = 0.85;
-
-    public static final double JOYSTICK_DEADBAND= 0.05;
-    public static final double THROTTLE_FACTOR = -1.0;
-    public static final double ROTATION_FACTOR = -0.8;
   }
 
   public static class RobotConstants {
@@ -70,8 +38,9 @@ public final class Constants {
       
     }
     
-    public static class IntakeID {
+    public class IntakeID {
       public static final int intakeMotorCANID = 11;
+      public static final int holdingMotorCANID = 12;
     }
     
   }
