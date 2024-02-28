@@ -155,7 +155,7 @@ public class Drivetrain extends SubsystemBase{
     
     private double rpmToMeterPerSecond(double motorRPM){
         double motorRPS = motorRPM/60;
-        double wheelRPS = motorRPS * RobotConstants.GEARBOX_STAGE_1 * RobotConstants.GEARBOX_STAGE_2 * RobotConstants.PULLEY_STAGE;
+        double wheelRPS = motorRPS * RobotConstants.GEARBOX_STAGE_1;
         double distancePerRev = Units.inchesToMeters(RobotConstants.WHEEL_DIAMETER_IN) * Math.PI;
         return wheelRPS * distancePerRev;
     }
@@ -168,7 +168,7 @@ public class Drivetrain extends SubsystemBase{
     }
 
     private double revolutionsToMeters(double motorRotations){
-        double wheelRotations = motorRotations * RobotConstants.GEARBOX_STAGE_1 * RobotConstants.GEARBOX_STAGE_2 * RobotConstants.PULLEY_STAGE;
+        double wheelRotations = motorRotations * RobotConstants.GEARBOX_STAGE_1;
         double distancePerRevolution = Units.inchesToMeters(RobotConstants.WHEEL_DIAMETER_IN) * Math.PI;
         return wheelRotations * distancePerRevolution;
     }

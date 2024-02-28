@@ -21,11 +21,9 @@ public final class Constants {
   }
 
   public static class RobotConstants {
-    public static final double GEARBOX_STAGE_1 = 0;
-    public static final double WHEEL_DIAMETER_IN = 0;
-    public static final double GEARBOX_STAGE_2 = 0;
-    public static final double PULLEY_STAGE = 0;
-    public static double ROBOT_WIDTH = 0.0; //put actual value here
+    public static final double GEARBOX_STAGE_1 = 8.46;
+    public static final double WHEEL_DIAMETER_IN = 6;
+    public static double ROBOT_WIDTH = 21.919; //width between wheels
   }
 
   public static class MotorCANID {
