@@ -32,6 +32,8 @@ public class RobotContainer {
 
   private final ShooterIntake intake = new ShooterIntake();
 
+  private final NoteHolder noteHolder = new NoteHolder();
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driveController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -60,6 +62,8 @@ public class RobotContainer {
   private void configureBindings() {
     driveController.b().whileTrue(intake.intake());
     driveController.a().whileTrue(intake.shoot());
+    driveController.x().whileTrue(noteHolder.intake());
+    driveController.y().whileTrue(noteHolder.shoot());
   }
 
   private void setupAutoChoosers(){ 
