@@ -26,10 +26,7 @@ import frc.robot.Constants.RobotConstants;
 public class Drivetrain extends SubsystemBase{
 
 
-  //private final DifferentialDrive m_drive;
 
-    private final CANSparkMax m_frontLeftMotor = new CANSparkMax(MotorCANID.DrivetrainID.frontLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-    private final CANSparkMax m_frontRightMotor = new CANSparkMax(MotorCANID.DrivetrainID.frontRightMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
 
   //private final DifferentialDrive m_drive;
 
