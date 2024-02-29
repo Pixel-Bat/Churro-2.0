@@ -91,7 +91,7 @@ public class Drivetrain extends SubsystemBase{
         m_odometry.update(m_gyro.getRotation2d(), getRightEncoderMeters(), getLeftEncoderMeters());
         m_field.setRobotPose(getPose());
         SmartDashboard.putData("Field", m_field);
-        SmartDashboard.putData("Gyro Heading", m_gyro);
+        SmartDashboard.putNumber("Gyro Heading", m_gyro.getAngle());
     }
 
     /**
@@ -102,6 +102,7 @@ public class Drivetrain extends SubsystemBase{
     public void Drive(double throttle, double rotation) {
         m_drive.arcadeDrive(throttle, rotation);
     }
+
     public void arcadeDrive(double throttle, double rotation) {
         m_drive.arcadeDrive(throttle, rotation);
     }
@@ -203,8 +204,5 @@ public class Drivetrain extends SubsystemBase{
       if(id == AllianceStationID.Red2) return true;
       if(id == AllianceStationID.Red3) return true;
       return false;
-
     }
-    
-    
 }
