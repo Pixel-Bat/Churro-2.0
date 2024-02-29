@@ -88,9 +88,10 @@ public class Drivetrain extends SubsystemBase{
 
    
     public void Periodic() {
-        m_odometry.update(null, getRightEncoderMeters(), getLeftEncoderMeters());
+        m_odometry.update(m_gyro.getRotation2d(), getRightEncoderMeters(), getLeftEncoderMeters());
         m_field.setRobotPose(getPose());
         SmartDashboard.putData("Field", m_field);
+        SmartDashboard.putData("Gyro Heading", m_gyro);
     }
 
     /**
