@@ -23,7 +23,7 @@ public final class Constants {
   public static class RobotConstants {
     public static final double GEARBOX_STAGE_1 = 8.46;
     public static final double WHEEL_DIAMETER_IN = 6;
-    public static double ROBOT_WIDTH = 21.919; //width between wheels
+    public static double ROBOT_WIDTH = 21.875; //width between wheels
   }
 
   public static class MotorCANID {
