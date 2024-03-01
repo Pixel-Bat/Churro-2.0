@@ -41,5 +41,25 @@ public final class Constants {
       public static final int holdingMotorCANID = 12;
     }
     
+    public class PivotID {
+      public static final int leftPivotMotorCANID = 6;
+      public static final int rightPivotMotorCANID = 7;
+    }
   }
+
+  public static class PivotConstants {
+    public class PIDConstants {
+      public static final double kP = 0;
+      public static final double kI = 0;
+      public static final double kD = 0;
+    }
+  
+    public class positions {
+      public static final int intakePos = 150;
+      public static final int shootPos = 125;
+      public static final int maxPos = 170;
+      public static final int minPos = 60;
+    }
+  }
+
 }
