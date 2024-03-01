@@ -12,19 +12,19 @@ import frc.robot.Constants.PivotConstants;
 
 public class Pivot extends SubsystemBase{
 
-    private final CANSparkMax leftPivot = new CANSparkMax(PivotID.leftPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-    private final CANSparkMax rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+    private final CANSparkMax m_leftPivot = new CANSparkMax(PivotID.leftPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+    private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
 
-    private final DutyCycleEncoder encoder = new DutyCycleEncoder(0);
+    private final DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
 
     private final PIDController controller = new PIDController(PivotConstants.PIDConstants.kP, PivotConstants.PIDConstants.kI, PivotConstants.PIDConstants.kD);
 
     private double currentPos;
 
     public Pivot() {
-        rightPivot.setInverted(true);
-        encoder.setDistancePerRotation(360);
-        
+        m_rightPivot.setInverted(true);
+        m_encoder.setDistancePerRotation(360);
+        currentPos = m_encoder.get();
     }
 
     public Command intakePos() {
@@ -52,7 +52,7 @@ public class Pivot extends SubsystemBase{
 
 
     public void Periodic() {
-        rightPivot.set(this.controller.calculate(encoder.get()));
-        leftPivot.set(this.controller.calculate(encoder.get()));
+        m_rightPivot.set(this.controller.calculate(m_encoder.get()));
+        m_leftPivot.set(this.controller.calculate(m_encoder.get()));
     }
 }

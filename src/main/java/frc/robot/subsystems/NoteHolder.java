@@ -6,22 +6,21 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.IntakeID;
+import frc.robot.Constants.ShooterConstants;
 
 public class NoteHolder extends SubsystemBase{
     
     
-    private final TalonSRX holdingMotor;
+    private final TalonSRX holdingMotor = new TalonSRX(IntakeID.holdingMotorCANID);
     
-    private final double speed_in = 0.30;
-    private final double speed_out = -0.30;
     
     public NoteHolder() {
-        this.holdingMotor = new TalonSRX(IntakeID.holdingMotorCANID);
+        
     }
     
     public Command intake() {
         return runEnd(() -> {
-            holdingMotor.set(ControlMode.PercentOutput, speed_in);
+            holdingMotor.set(ControlMode.PercentOutput, ShooterConstants.holderSpeedIn);
         }, () -> {
             holdingMotor.set(ControlMode.PercentOutput, 0);
         });
@@ -29,7 +28,7 @@ public class NoteHolder extends SubsystemBase{
     
     public Command shoot() {
         return runEnd(() -> {
-            holdingMotor.set(ControlMode.PercentOutput, speed_out);
+            holdingMotor.set(ControlMode.PercentOutput, ShooterConstants.holderSpeedOut);
         }, () -> {
             holdingMotor.set(ControlMode.PercentOutput, 0);
         });
