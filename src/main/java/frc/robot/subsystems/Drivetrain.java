@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID;
 import frc.robot.Constants.RobotConstants;
@@ -68,22 +69,26 @@ public class Drivetrain extends SubsystemBase{
     private final PIDController m_leftPIDController = new PIDController(1, 0, 0);
     private final PIDController m_rightPIDController = new PIDController(1, 0, 0);
 
+    //private final Shuffleboard shuffleboard = new shuffleboard();
+
     public Drivetrain() {
         
         
+        Shuffleboard.getTab("gyro").add(m_gyro);
+        //Shuffleboard.getTab(getName()).addNumber("Left Encoder", m_left.getPosition());
+        m_frontLeftMotor.setInverted(true);
+        m_backLeftMotor.setInverted(true);
 
-        //m_frontLeftMotor.setInverted(true);
-        //m_backLeftMotor.setInverted(true);
-
-
+        
         m_backLeftMotor.follow(m_frontLeftMotor);
         m_backRightMotor.follow(m_frontRightMotor);
         
-
+        
         
         m_isRedAlliance = isRed( DriverStation.getRawAllianceStation());
 
         configureAutoBuilder();
+        
     }
 
    
@@ -91,7 +96,9 @@ public class Drivetrain extends SubsystemBase{
         m_odometry.update(m_gyro.getRotation2d(), getRightEncoderMeters(), getLeftEncoderMeters());
         m_field.setRobotPose(getPose());
         SmartDashboard.putData("Field", m_field);
-        SmartDashboard.putNumber("Gyro Heading", m_gyro.getAngle());
+        SmartDashboard.putData("Gyro Heading", m_gyro);
+        SmartDashboard.putNumber("Left Encoder", getLeftEncoderMeters());
+        SmartDashboard.putNumber("Right Encoder", getLeftEncoderMeters());
     }
 
     /**
