@@ -79,11 +79,11 @@ public class Drivetrain extends SubsystemBase{
         Shuffleboard.getTab("Test Tab").add(m_drive);
         //Shuffleboard.getTab("Test Tab").addNumber("test", m_left.getPosition());
        
-        // m_frontLeftMotor.setInverted(true);
-        // m_backLeftMotor.setInverted(true);
-
         m_frontLeftMotor.setInverted(true);
-        m_backRightMotor.setInverted(true);
+        m_backLeftMotor.setInverted(true);
+
+        m_frontRightMotor.setInverted(false);
+        m_backRightMotor.setInverted(false);
 
         
         m_backLeftMotor.follow(m_frontLeftMotor);
@@ -98,13 +98,19 @@ public class Drivetrain extends SubsystemBase{
     }
 
    
-    public void Periodic() {
+    public void periodic() {
         m_odometry.update(m_gyro.getRotation2d(), getRightEncoderMeters(), getLeftEncoderMeters());
         m_field.setRobotPose(getPose());
         SmartDashboard.putData("Field", m_field);
         SmartDashboard.putData("Gyro Heading", m_gyro);
         SmartDashboard.putNumber("Left Encoder", getLeftEncoderMeters());
-        SmartDashboard.putNumber("Right Encoder", getLeftEncoderMeters());
+        SmartDashboard.putNumber("Right Encoder", getRightEncoderMeters());
+
+        
+        // Shuffleboard.getTab("Test Tab").add(m_leftPIDController);
+        // Shuffleboard.getTab("Test Tab").add(m_rightPIDController);
+        
+
         
 
     }
@@ -143,6 +149,9 @@ public class Drivetrain extends SubsystemBase{
             m_rightPIDController.calculate(getRightEncoderMetersPerSecond(), speeds.rightMetersPerSecond);
         m_frontLeftMotor.setVoltage(leftOutput);
         m_frontRightMotor.setVoltage(rightOutput);
+
+        SmartDashboard.putNumber("test", rightOutput);
+        SmartDashboard.putNumber("test2", leftOutput);
       }
 
       
