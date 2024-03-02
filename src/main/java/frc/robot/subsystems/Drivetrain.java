@@ -74,10 +74,16 @@ public class Drivetrain extends SubsystemBase{
     public Drivetrain() {
         
         
-        Shuffleboard.getTab("gyro").add(m_gyro);
-        //Shuffleboard.getTab(getName()).addNumber("Left Encoder", m_left.getPosition());
+        Shuffleboard.getTab("Test Tab").add(m_gyro);
+        Shuffleboard.getTab("Test Tab").add(m_field);
+        Shuffleboard.getTab("Test Tab").add(m_drive);
+        //Shuffleboard.getTab("Test Tab").addNumber("test", m_left.getPosition());
+       
+        // m_frontLeftMotor.setInverted(true);
+        // m_backLeftMotor.setInverted(true);
+
         m_frontLeftMotor.setInverted(true);
-        m_backLeftMotor.setInverted(true);
+        m_backRightMotor.setInverted(true);
 
         
         m_backLeftMotor.follow(m_frontLeftMotor);
@@ -99,6 +105,8 @@ public class Drivetrain extends SubsystemBase{
         SmartDashboard.putData("Gyro Heading", m_gyro);
         SmartDashboard.putNumber("Left Encoder", getLeftEncoderMeters());
         SmartDashboard.putNumber("Right Encoder", getLeftEncoderMeters());
+        
+
     }
 
     /**
