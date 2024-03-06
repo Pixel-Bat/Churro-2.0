@@ -57,7 +57,7 @@ public class RobotContainer {
       new ArcadeDrive(
         drivetrain,
         () -> -this.driveController.getLeftY(),
-        () -> this.driveController.getRightX()
+        () -> this.driveController.getRightX()/1.35
       )
     );
   }
