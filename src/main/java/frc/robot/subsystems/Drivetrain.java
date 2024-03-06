@@ -147,8 +147,12 @@ public class Drivetrain extends SubsystemBase{
             m_leftPIDController.calculate(getLeftEncoderMetersPerSecond(), speeds.leftMetersPerSecond);
         final double rightOutput =
             m_rightPIDController.calculate(getRightEncoderMetersPerSecond(), speeds.rightMetersPerSecond);
-        m_frontLeftMotor.setVoltage(leftOutput);
-        m_frontRightMotor.setVoltage(rightOutput);
+        m_frontLeftMotor.set(leftOutput);
+        //m_backLeftMotor.set(leftOutput);
+
+        m_frontRightMotor.set(rightOutput);
+        //m_backRightMotor.set(rightOutput);
+
 
         SmartDashboard.putNumber("test", rightOutput);
         SmartDashboard.putNumber("test2", leftOutput);

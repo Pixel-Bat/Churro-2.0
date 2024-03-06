@@ -5,10 +5,14 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.PivotID;
 import frc.robot.Constants.PivotConstants;
+
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.RobotContainer;
 
 public class Pivot extends SubsystemBase{
 
@@ -21,9 +25,14 @@ public class Pivot extends SubsystemBase{
 
     private double currentPos;
 
+    private double maintainPos;
+
+   
+
     public Pivot() {
         m_rightPivot.setInverted(true);
-        m_encoder.setDistancePerRotation(360);
+        m_leftPivot.setInverted(false);
+        m_encoder.setDistancePerRotation(360/2);
         currentPos = m_encoder.get();
     }
 
@@ -51,8 +60,25 @@ public class Pivot extends SubsystemBase{
     }
 
 
-    public void Periodic() {
-        m_rightPivot.set(this.controller.calculate(m_encoder.get()));
-        m_leftPivot.set(this.controller.calculate(m_encoder.get()));
+    public void periodic() {
+        m_rightPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
+        m_leftPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
+        SmartDashboard.putNumber("Pivot", encoderToDegrees(m_encoder.getAbsolutePosition()));
+        SmartDashboard.putData(this.controller);
+    }
+
+    public void teleopPeriodic() {
+
+    }
+
+    public double encoderToDegrees(double encoderInput) {
+        return encoderInput * 180;
+    }
+
+    public void setPivotAngle(double input) {
+        if (currentPos > PivotConstants.positions.minPos && currentPos < PivotConstants.positions.maxPos) {
+            m_leftPivot.set(input/100);
+            m_rightPivot.set(input/100);
+        }
     }
 }
