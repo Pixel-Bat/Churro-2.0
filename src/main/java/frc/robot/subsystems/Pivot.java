@@ -23,7 +23,7 @@ public class Pivot extends SubsystemBase{
 
     private final PIDController controller = new PIDController(PivotConstants.PIDConstants.kP, PivotConstants.PIDConstants.kI, PivotConstants.PIDConstants.kD);
 
-    private double currentPos;
+    private double desiredPos;
 
     private double maintainPos;
 
@@ -33,52 +33,53 @@ public class Pivot extends SubsystemBase{
         m_rightPivot.setInverted(true);
         m_leftPivot.setInverted(false);
         m_encoder.setDistancePerRotation(360/2);
-        currentPos = m_encoder.get();
+        desiredPos = m_encoder.getAbsolutePosition();
     }
 
     public Command intakePos() {
         return runOnce(() -> {
-            currentPos = PivotConstants.positions.intakePos;
-            this.controller.setSetpoint(currentPos);
+            desiredPos = PivotConstants.positions.intakePos;
+            this.controller.setSetpoint(desiredPos);
         });
     }
 
     public Command shootPos() {
         return runOnce(() -> {
-            currentPos = PivotConstants.positions.shootPos;
-            this.controller.setSetpoint(currentPos);
+            desiredPos = PivotConstants.positions.shootPos;
+            this.controller.setSetpoint(desiredPos);
         });
     }
 
     public Command customPos(double input) {
         return run(() -> {
-            if (currentPos > PivotConstants.positions.minPos && currentPos < PivotConstants.positions.maxPos) {
-                currentPos += input;
-                this.controller.setSetpoint(currentPos);
+            if (desiredPos > PivotConstants.positions.minPos && desiredPos < PivotConstants.positions.maxPos) {
+                desiredPos += input;
+                this.controller.setSetpoint(desiredPos);
             }
         });
     }
 
 
     public void periodic() {
-        m_rightPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
-        m_leftPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
-        SmartDashboard.putNumber("Pivot", encoderToDegrees(m_encoder.getAbsolutePosition()));
+        //m_rightPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
+        //m_leftPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
+        SmartDashboard.putNumber("Pivot", encoderInDegrees());
         SmartDashboard.putData(this.controller);
+        setPivotAngle(RobotContainer.operatorController.getY());
     }
 
     public void teleopPeriodic() {
 
     }
 
-    public double encoderToDegrees(double encoderInput) {
-        return encoderInput * 180;
+    public double encoderInDegrees() {
+        return m_encoder.getAbsolutePosition() * 180;
     }
 
     public void setPivotAngle(double input) {
-        if (currentPos > PivotConstants.positions.minPos && currentPos < PivotConstants.positions.maxPos) {
+        //if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
             m_leftPivot.set(input/100);
             m_rightPivot.set(input/100);
-        }
+        //}
     }
 }

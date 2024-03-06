@@ -40,7 +40,7 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driveController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  public final CommandJoystick operatorController = new CommandJoystick(OperatorConstants.kOperatorControllerPort);
+  public static final CommandJoystick operatorController = new CommandJoystick(OperatorConstants.kOperatorControllerPort);
   private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
