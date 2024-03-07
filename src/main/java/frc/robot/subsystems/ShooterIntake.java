@@ -36,4 +36,12 @@ public class ShooterIntake extends SubsystemBase{
             m_shooterMotor.set(0);
         });
     }
+
+    public Command amp() {
+        return runEnd(() -> {
+            m_shooterMotor.set(ShooterConstants.ampSpeedOut);
+        }, () -> {
+            m_shooterMotor.set(0);
+        });
+    }
 }

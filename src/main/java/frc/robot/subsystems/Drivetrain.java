@@ -106,6 +106,9 @@ public class Drivetrain extends SubsystemBase{
         SmartDashboard.putNumber("Left Encoder", getLeftEncoderMeters());
         SmartDashboard.putNumber("Right Encoder", getRightEncoderMeters());
 
+        m_drive.feed();
+        m_drive.feedWatchdog();
+
         
         // Shuffleboard.getTab("Test Tab").add(m_leftPIDController);
         // Shuffleboard.getTab("Test Tab").add(m_rightPIDController);

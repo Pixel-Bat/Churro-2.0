@@ -32,8 +32,8 @@ public class Pivot extends SubsystemBase{
     public Pivot() {
         m_rightPivot.setInverted(true);
         m_leftPivot.setInverted(false);
-        m_leftPivot.follow(m_leftPivot);
-        m_rightPivot.follow(m_rightPivot);
+        
+        m_rightPivot.follow(m_rightPivot, true);
         m_encoder.setDistancePerRotation(360/2);
         desiredPos = m_encoder.getAbsolutePosition();
     }
