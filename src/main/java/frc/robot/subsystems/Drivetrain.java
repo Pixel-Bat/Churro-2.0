@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID;
 import frc.robot.Constants.RobotConstants;
@@ -77,6 +78,8 @@ public class Drivetrain extends SubsystemBase{
         Shuffleboard.getTab("Test Tab").add(m_gyro);
         Shuffleboard.getTab("Test Tab").add(m_field);
         Shuffleboard.getTab("Test Tab").add(m_drive);
+        Shuffleboard.getTab("Test Tab").add(this);
+        Shuffleboard.getTab("Test Tab").add(CommandScheduler.getInstance());
         //Shuffleboard.getTab("Test Tab").addNumber("test", m_left.getPosition());
        
         m_frontLeftMotor.setInverted(true);

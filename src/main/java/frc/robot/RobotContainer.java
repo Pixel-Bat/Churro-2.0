@@ -10,6 +10,7 @@ import frc.robot.commands.ArcadeDrive;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -56,14 +57,16 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new ArcadeDrive(
         drivetrain,
-        () -> -this.driveController.getLeftY(),
-        () -> this.driveController.getRightX()/1.35
+        // () -> -this.driveController.getLeftY(),
+        // () -> this.driveController.getRightX()/1.35
+        () -> -this.driveController.getLeftY() / 1.5,
+        () -> this.driveController.getRightX()/1.85
       )
     );
   }
 
   private void configureBindings() {
-    operatorController.button(1).whileTrue(intake.shoot());
+    //operatorController.button(1).whileTrue(intake.shoot());
     operatorController.button(2).whileTrue(intake.intake());
     operatorController.button(3).whileTrue(intake.amp());
     operatorController.button(4).whileTrue(noteHolder.shoot());
@@ -78,6 +81,7 @@ public class RobotContainer {
   private void setupAutoChoosers(){ 
     new PathPlannerAuto("Example Auto");
     SmartDashboard.putData("Auto Mode", autoChooser);
+    Shuffleboard.getTab("Test Tab").add("Auto Mode", autoChooser);
   }
 
   /**
