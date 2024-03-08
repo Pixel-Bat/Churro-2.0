@@ -63,10 +63,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    driveController.b().whileTrue(intake.intake());
-    driveController.a().whileTrue(intake.shoot());
-    driveController.x().whileTrue(noteHolder.intake());
-    driveController.y().whileTrue(noteHolder.shoot());
+    operatorController.button(1).whileTrue(intake.shoot());
+    operatorController.button(2).whileTrue(intake.intake());
+    operatorController.button(3).whileTrue(intake.amp());
+    operatorController.button(4).whileTrue(noteHolder.shoot());
+    operatorController.button(6).whileTrue(noteHolder.intake());
+    //driveController.y().whileTrue(noteHolder.shoot());
 
     //operatorController.button(1).whileTrue(pivot.customPos(operatorController.getY()));
     //operatorController.button(1).whileTrue(pivot.intakePos());    

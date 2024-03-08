@@ -37,8 +37,8 @@ public final class Constants {
     }
     
     public class IntakeID {
-      public static final int intakeMotorCANID = 11;
-      public static final int holdingMotorCANID = 12;
+      public static final int intakeMotorCANID = 8;
+      public static final int holdingMotorCANID = 10;
     }
     
     public class PivotID {
@@ -50,6 +50,7 @@ public final class Constants {
   public static class ShooterConstants {
     public static final double shooterSpeedIn = -0.5;
     public static final double shooterSpeedOut = 1;
+    public static final double ampSpeedOut = 0.2;
 
     public static final double holderSpeedIn = -0.3;
     public static final double holderSpeedOut = 0.3;

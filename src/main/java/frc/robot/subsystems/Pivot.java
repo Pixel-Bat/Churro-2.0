@@ -17,7 +17,7 @@ import frc.robot.RobotContainer;
 public class Pivot extends SubsystemBase{
 
     private final CANSparkMax m_leftPivot = new CANSparkMax(PivotID.leftPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-    private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+    //private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
 
     private final DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
 
@@ -30,10 +30,10 @@ public class Pivot extends SubsystemBase{
    
 
     public Pivot() {
-        m_rightPivot.setInverted(true);
+        //m_rightPivot.setInverted(true);
         m_leftPivot.setInverted(false);
         
-        m_rightPivot.follow(m_rightPivot, true);
+        //m_rightPivot.follow(m_leftPivot, true);
         m_encoder.setDistancePerRotation(360/2);
         desiredPos = m_encoder.getAbsolutePosition();
     }
@@ -67,12 +67,10 @@ public class Pivot extends SubsystemBase{
         //m_leftPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
         SmartDashboard.putNumber("Pivot", encoderInDegrees());
         SmartDashboard.putData(this.controller);
-        setPivotAngle(RobotContainer.operatorController.getY());
+        setPivotAngle(-RobotContainer.operatorController.getY());
     }
 
-    public void teleopPeriodic() {
 
-    }
 
     public double encoderInDegrees() {
         return m_encoder.getAbsolutePosition() * 180;
@@ -80,8 +78,9 @@ public class Pivot extends SubsystemBase{
 
     public void setPivotAngle(double input) {
         //if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
-            m_leftPivot.set(input/10);
-            m_rightPivot.set(input/10);
+            m_leftPivot.set(input/5);
+        
+            //m_rightPivot.set(input/10);
         //}
     }
 }
