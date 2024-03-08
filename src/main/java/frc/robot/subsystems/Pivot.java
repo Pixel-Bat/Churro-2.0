@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.PivotID;
 import frc.robot.Constants.PivotConstants;
-
+import frc.robot.Constants.ShooterConstants;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.RobotContainer;
 
@@ -24,8 +24,9 @@ public class Pivot extends SubsystemBase{
     private final PIDController controller = new PIDController(PivotConstants.PIDConstants.kP, PivotConstants.PIDConstants.kI, PivotConstants.PIDConstants.kD);
 
     private double desiredPos;
-
     private double maintainPos;
+
+    private boolean isPIDBalancing = true;
 
    
 
@@ -40,6 +41,7 @@ public class Pivot extends SubsystemBase{
 
     public Command intakePos() {
         return runOnce(() -> {
+            isPIDBalancing = false;
             desiredPos = PivotConstants.positions.intakePos;
             this.controller.setSetpoint(desiredPos);
         });
@@ -47,27 +49,41 @@ public class Pivot extends SubsystemBase{
 
     public Command shootPos() {
         return runOnce(() -> {
+            isPIDBalancing = false;
             desiredPos = PivotConstants.positions.shootPos;
             this.controller.setSetpoint(desiredPos);
         });
     }
 
+    public Command groundPos() {
+        return runOnce(() -> {
+            isPIDBalancing = false;
+            desiredPos = PivotConstants.positions.groundPos;
+            this.controller.setSetpoint(desiredPos);
+        });
+    }
+
     public Command customPos(double input) {
-        return run(() -> {
+        return runEnd(() -> {
+            isPIDBalancing = false;
             if (desiredPos > PivotConstants.positions.minPos && desiredPos < PivotConstants.positions.maxPos) {
                 desiredPos += input;
                 this.controller.setSetpoint(desiredPos);
             }
+        }, () -> {
+            isPIDBalancing = true;
         });
     }
 
 
     public void periodic() {
         //m_rightPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
-        //m_leftPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
+        if (isPIDBalancing) m_leftPivot.set(this.controller.calculate(encoderInDegrees()));
+
+
         SmartDashboard.putNumber("Pivot", encoderInDegrees());
         SmartDashboard.putData(this.controller);
-        setPivotAngle(-RobotContainer.operatorController.getY());
+        // setPivotAngle(-RobotContainer.operatorController.getY());
     }
 
 
@@ -76,11 +92,11 @@ public class Pivot extends SubsystemBase{
         return m_encoder.getAbsolutePosition() * 180;
     }
 
-    public void setPivotAngle(double input) {
-        //if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
-            m_leftPivot.set(input/5);
+    // public void setPivotAngle(double input) {
+    //     //if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
+    //         m_leftPivot.set(input/5);
         
-            //m_rightPivot.set(input/10);
-        //}
-    }
+    //         //m_rightPivot.set(input/10);
+    //     //}
+    // }
 }

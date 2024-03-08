@@ -70,8 +70,9 @@ public class RobotContainer {
     operatorController.button(6).whileTrue(noteHolder.intake());
     //driveController.y().whileTrue(noteHolder.shoot());
 
-    //operatorController.button(1).whileTrue(pivot.customPos(operatorController.getY()));
-    //operatorController.button(1).whileTrue(pivot.intakePos());    
+    operatorController.button(1).whileTrue(pivot.customPos(operatorController.getY()));
+    // operatorController.button(1).whileTrue(pivot.intakePos());    
+    // operatorController.button(2).whileTrue(pivot.shootPos());    
   }
 
   private void setupAutoChoosers(){ 

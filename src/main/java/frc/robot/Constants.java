@@ -65,6 +65,7 @@ public final class Constants {
   
     public class positions {
       public static final int intakePos = 150;
+      public static final int groundPos = 80;
       public static final int shootPos = 125;
       public static final int maxPos = 170;
       public static final int minPos = 60;
