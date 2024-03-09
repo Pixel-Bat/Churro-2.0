@@ -48,12 +48,12 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double shooterSpeedIn = -0.5;
+    public static final double shooterSpeedIn = -0.6;
     public static final double shooterSpeedOut = 1;
     public static final double ampSpeedOut = 0.2;
 
-    public static final double holderSpeedIn = -0.3;
-    public static final double holderSpeedOut = 0.3;
+    public static final double holderSpeedIn = -0.4;
+    public static final double holderSpeedOut = 0.55;
   }
 
   public static class PivotConstants {

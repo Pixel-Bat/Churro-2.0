@@ -36,7 +36,7 @@ public class RobotContainer {
 
   private final NoteHolder noteHolder = new NoteHolder();
 
-  private final Pivot pivot = new Pivot();
+  private final PivotCopy pivot = new PivotCopy();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -73,7 +73,7 @@ public class RobotContainer {
     operatorController.button(6).whileTrue(noteHolder.intake());
     //driveController.y().whileTrue(noteHolder.shoot());
 
-    operatorController.button(1).whileTrue(pivot.customPos(operatorController.getY()));
+    driveController.button(1).whileTrue(pivot.customPos());
     // operatorController.button(1).whileTrue(pivot.intakePos());    
     // operatorController.button(2).whileTrue(pivot.shootPos());    
   }

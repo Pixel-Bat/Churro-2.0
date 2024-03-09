@@ -19,7 +19,7 @@ import frc.robot.Constants.ShooterConstants;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.RobotContainer;
 
-public class Pivot extends SubsystemBase{
+public class PivotCopy extends SubsystemBase{
 
     private final CANSparkMax m_leftPivot = new CANSparkMax(PivotID.leftPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
     //private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
@@ -29,7 +29,6 @@ public class Pivot extends SubsystemBase{
     private final PIDController controller = new PIDController(PivotConstants.PIDConstants.kP, PivotConstants.PIDConstants.kI, PivotConstants.PIDConstants.kD);
 
     private double desiredPos;
-    private double maintainPos;
 
     private DoubleSupplier currentEncoderPos;
     private DoubleSupplier desiredPivotPos;
@@ -39,28 +38,26 @@ public class Pivot extends SubsystemBase{
 
    
 
-    public Pivot() {
-        //m_rightPivot.setInverted(true);
+    public PivotCopy() {
+        //m_rightPivot.setInverted(true);d
         m_leftPivot.setInverted(false);
         
         //m_rightPivot.follow(m_leftPivot, true);
         m_encoder.setDistancePerRotation(360/2);
-        desiredPos = m_encoder.getAbsolutePosition();
+        desiredPos = encoderInDegrees();
 
         desiredPivotPos = () -> desiredPos;
-        currentEncoderPos = () -> m_encoder.getAbsolutePosition();
+        currentEncoderPos = () -> encoderInDegrees();
         balancingPIDSupplier = () -> isPIDBalancing;
-        
 
-       
         Shuffleboard.getTab("Test Tab").add(this);
         Shuffleboard.getTab("Test Tab").add(this.controller);
-        //SmartDashboard.putNumber("Pivot", encoderInDegrees());
-        //SmartDashboard.putData("Pivot PID", this.controller);
-        SmartDashboard.putNumber("SetPos", desiredPos);
+
         Shuffleboard.getTab("Test Tab").addDouble("Desired Pos", desiredPivotPos);
         Shuffleboard.getTab("Test Tab").addDouble("Current Pos", currentEncoderPos);
         Shuffleboard.getTab("Test Tab").addBoolean("Is Balancing", balancingPIDSupplier);
+
+        
         // setPivotAngle(-RobotContainer.operatorController.getY());
     }
 
@@ -88,27 +85,25 @@ public class Pivot extends SubsystemBase{
     //     });
     // }
 
-    public Command customPos(double input) {
-        return runEnd(() -> {
-            isPIDBalancing = false;
-            SmartDashboard.putBoolean("BalancingBool", isPIDBalancing);
-            // if (desiredPos > PivotConstants.positions.minPos && desiredPos < PivotConstants.positions.maxPos) {
-                desiredPos += input / 5;
-                this.controller.setSetpoint(desiredPos);
-            //}
-        }, () -> {
-            isPIDBalancing = true;
+    public Command customPos() {
+        return run(() -> {
+            double input = RobotContainer.operatorController.getY();
+            SmartDashboard.putNumber("InputPos", input);
+            desiredPos += input / 5;
+            this.controller.setSetpoint(desiredPos);
         });
     }
 
 
     public void periodic() {
         //m_rightPivot.set(this.controller.calculate(encoderToDegrees(m_encoder.getAbsolutePosition())));
+        //desiredPos = encoderInDegrees();
         desiredPivotPos = () -> desiredPos;
-        currentEncoderPos = () -> m_encoder.getAbsolutePosition();
+        currentEncoderPos = () -> encoderInDegrees();
         balancingPIDSupplier = () -> isPIDBalancing;
-        SmartDashboard.putBoolean("BalancingBool", isPIDBalancing);
-        // m_leftPivot.set(this.controller.calculate(0.5));
+        SmartDashboard.putNumber("DesiredPos", desiredPos);
+        
+        m_leftPivot.set(this.controller.calculate(desiredPos));
     }
 
 
