@@ -56,8 +56,10 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new ArcadeDrive(
         drivetrain,
-        () -> -this.driveController.getLeftY(),
-        () -> this.driveController.getRightX()/1.35
+        // () -> 1.2 * Math.pow(-this.driveController.getLeftY(), 3),
+        // () -> Math.pow(this.driveController.getRightX(), 3)
+        () -> -this.driveController.getLeftY() / 1.05,
+        () -> this.driveController.getRightX()/1.
       )
     );
   }

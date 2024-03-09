@@ -32,8 +32,14 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Drivetrain/ADXRS450_Gyro[0]": "Gyro",
+      "/Shuffleboard/Test Tab/ADXRS450_Gyro[0]": "Gyro",
+      "/Shuffleboard/Test Tab/DifferentialDrive[1]": "DifferentialDrive",
+      "/Shuffleboard/Test Tab/Field": "Field2d",
+      "/Shuffleboard/Test Tab/PID": "PIDController",
       "/SmartDashboard/Auto Mode": "String Chooser",
-      "/SmartDashboard/Field": "Field2d"
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/Gyro Heading": "Gyro",
+      "/SmartDashboard/PIDController[3]": "PIDController"
     },
     "windows": {
       "/SmartDashboard/Field": {
