@@ -28,7 +28,7 @@ public final class Constants {
 
   public static class MotorCANID {
     public class DrivetrainID {
-      // Can IDs for 2023 Robot, change when we make a new one
+      // Can IDs for 2024 Robot, change when we make a new one
       public static final int frontLeftMotorCANID = 4;
       public static final int frontRightMotorCANID = 2;
       public static final int backLeftMotorCANID = 5;

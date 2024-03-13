@@ -10,6 +10,7 @@ import frc.robot.commands.ArcadeDrive;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -77,8 +78,9 @@ public class RobotContainer {
   }
 
   private void setupAutoChoosers(){ 
-    new PathPlannerAuto("Example Auto");
+    new PathPlannerAuto("2024 ONT McMaster Auto 1");
     SmartDashboard.putData("Auto Mode", autoChooser);
+    Shuffleboard.getTab("Test Tab").add("Auto Mode", autoChooser);
   }
 
   /**

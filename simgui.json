@@ -33,6 +33,7 @@
       "/FMSInfo": "FMSInfo",
       "/Shuffleboard/Drivetrain/ADXRS450_Gyro[0]": "Gyro",
       "/Shuffleboard/Test Tab/ADXRS450_Gyro[0]": "Gyro",
+      "/Shuffleboard/Test Tab/Auto Mode": "String Chooser",
       "/Shuffleboard/Test Tab/DifferentialDrive[1]": "DifferentialDrive",
       "/Shuffleboard/Test Tab/Field": "Field2d",
       "/Shuffleboard/Test Tab/PID": "PIDController",

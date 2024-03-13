@@ -19,11 +19,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID;
 import frc.robot.Constants.RobotConstants;
-
+import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 public class Drivetrain extends SubsystemBase{
 
 
@@ -36,7 +38,6 @@ public class Drivetrain extends SubsystemBase{
 
     private final CANSparkMax m_backLeftMotor = new CANSparkMax(MotorCANID.DrivetrainID.backLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
     private final CANSparkMax m_backRightMotor = new CANSparkMax(MotorCANID.DrivetrainID.backRightMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-
     
       
     private final RelativeEncoder m_left = m_frontLeftMotor.getEncoder();
@@ -49,8 +50,6 @@ public class Drivetrain extends SubsystemBase{
         getLeftEncoderMeters(),
         getRightEncoderMeters()
     );
-
-    
 
     private final DifferentialDrive m_drive = new DifferentialDrive(
         m_frontLeftMotor::set, 
@@ -144,7 +143,7 @@ public class Drivetrain extends SubsystemBase{
 
     
 
-    
+    // This is only called during auto, if you comment it out along with all of the other places it is referenced, it only affects the auto.
     public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
         final double leftOutput =
             m_leftPIDController.calculate(getLeftEncoderMetersPerSecond(), speeds.leftMetersPerSecond);
@@ -156,6 +155,18 @@ public class Drivetrain extends SubsystemBase{
         m_frontRightMotor.setVoltage(rightOutput);
         m_backRightMotor.setVoltage(rightOutput);
 
+        //Parameters:
+            // xSpeed The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
+            // zRotation The robot's rotation rate around the Z axis [-1.0..1.0]. Counterclockwise is positive.
+
+        /*  I saw others with the same issue saying that the team wasn't using the built in arcadeDrive functions and was using
+            setVoltage instead of the built in functions for driving. They said to either use the built in driving functions,
+            or to use the DifferentialDrive's built in feed() function which already exists in the arcadeDrive() function.
+
+            My thinking was that we could take the average of the leftOutput + rightOutput as forward, and average of leftOuput
+            minus rightOutput for rotation.
+        */
+        m_drive.arcadeDrive((leftOutput + rightOutput) / 2, (leftOutput - rightOutput) / 2);
 
         SmartDashboard.putNumber("test", rightOutput);
         SmartDashboard.putNumber("test2", leftOutput);
