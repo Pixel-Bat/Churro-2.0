@@ -74,6 +74,8 @@ public class Drivetrain extends SubsystemBase{
     private final PIDController m_rightPIDController = new PIDController(1, 0, 0);
 
     public Drivetrain() {
+        configureAutoBuilder();
+
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_gyro);
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_field);
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_drive);
@@ -202,6 +204,17 @@ public class Drivetrain extends SubsystemBase{
         double wheelRotations = motorRotations * RobotConstants.GEARBOX_STAGE_1;
         double distancePerRevolution = Units.inchesToMeters(RobotConstants.WHEEL_DIAMETER_IN) * Math.PI;
         return wheelRotations * distancePerRevolution;
+    }
+
+    public void configureAutoBuilder() {
+        AutoBuilder.configureRamsete(
+        this::getPose, 
+        this::resetOdometry, 
+        this::getWheelSpeeds,
+        this::driveWithChassisSpeeds, 
+        new ReplanningConfig(),
+        this::flipPath, 
+        this);
     }
 
     public boolean flipPath(){

@@ -57,7 +57,6 @@ public class RobotContainer {
     setupDefaultCommands();
     configureBindings();
     setupAutoChoosers();
-    configureAutoBuilder();
   }
 
   public void defineAutoCommands() {
@@ -89,17 +88,6 @@ public class RobotContainer {
 
     //operatorController.button(1).whileTrue(pivot.customPos(operatorController.getY()));
     //operatorController.button(1).whileTrue(pivot.intakePos());    
-  }
-
-  public void configureAutoBuilder() {
-    AutoBuilder.configureRamsete(
-      drivetrain::getPose, 
-      drivetrain::resetOdometry, 
-      drivetrain::getWheelSpeeds,
-      drivetrain::driveWithChassisSpeeds, 
-      new ReplanningConfig(),
-      drivetrain::flipPath, 
-      drivetrain);
   }
 
   private void setupAutoChoosers(){ 
