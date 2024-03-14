@@ -18,12 +18,13 @@ public final class Constants {
     // Ports
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
+    public static final String operatorShuffleboardTab = "Driver Station";
   }
 
   public static class RobotConstants {
     public static final double GEARBOX_STAGE_1 = 1/8.46;
     public static final double WHEEL_DIAMETER_IN = 6;
-    public static double ROBOT_WIDTH = 21.875; //width between wheels in inches
+    public static final double ROBOT_WIDTH = 21.875; //width between wheels in inches
   }
 
   public static class MotorCANID {

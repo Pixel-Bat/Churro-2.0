@@ -6,14 +6,20 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.SpeakerArmHeight;
+
+import java.util.HashMap;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -46,11 +52,19 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
     // Configure the trigger bindings
+    defineAutoCommands();
     setupDefaultCommands();
     configureBindings();
     setupAutoChoosers();
+    configureAutoBuilder();
+  }
+
+  public void defineAutoCommands() {
+    // Setting up NamedCommands from the PathPlanner Auto
+    NamedCommands.registerCommand("setArmHeight", new SpeakerArmHeight(pivot));
+    NamedCommands.registerCommand("startShooter", intake.shoot());
+    NamedCommands.registerCommand("shootNote", noteHolder.shoot());
   }
 
   private void setupDefaultCommands(){
@@ -77,10 +91,23 @@ public class RobotContainer {
     //operatorController.button(1).whileTrue(pivot.intakePos());    
   }
 
+  public void configureAutoBuilder() {
+    AutoBuilder.configureRamsete(
+      drivetrain::getPose, 
+      drivetrain::resetOdometry, 
+      drivetrain::getWheelSpeeds,
+      drivetrain::driveWithChassisSpeeds, 
+      new ReplanningConfig(),
+      drivetrain::flipPath, 
+      drivetrain);
+  }
+
   private void setupAutoChoosers(){ 
+    new PathPlannerAuto("Example Auto");
     new PathPlannerAuto("2024 ONT McMaster Auto 1");
+    new PathPlannerAuto("2024 ONT McMaster Auto 2 (Test)");
     SmartDashboard.putData("Auto Mode", autoChooser);
-    Shuffleboard.getTab("Test Tab").add("Auto Mode", autoChooser);
+    Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Auto Mode", autoChooser);
   }
 
   /**

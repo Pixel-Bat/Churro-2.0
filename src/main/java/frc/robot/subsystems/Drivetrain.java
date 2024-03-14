@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.CANSparkLowLevel;
@@ -21,16 +24,19 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorCANID;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotConstants;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
+
+
+
 public class Drivetrain extends SubsystemBase{
-
-
-
-
   //private final DifferentialDrive m_drive;
 
     private final CANSparkMax m_frontLeftMotor = new CANSparkMax(MotorCANID.DrivetrainID.frontLeftMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
@@ -62,21 +68,16 @@ public class Drivetrain extends SubsystemBase{
 
     private Field2d m_field = new Field2d();
 
-
     private final Boolean m_isRedAlliance;
 
     private final PIDController m_leftPIDController = new PIDController(1, 0, 0);
     private final PIDController m_rightPIDController = new PIDController(1, 0, 0);
 
-    //private final Shuffleboard shuffleboard = new shuffleboard();
-
     public Drivetrain() {
-        
-        
-        Shuffleboard.getTab("Test Tab").add(m_gyro);
-        Shuffleboard.getTab("Test Tab").add(m_field);
-        Shuffleboard.getTab("Test Tab").add(m_drive);
-        //Shuffleboard.getTab("Test Tab").addNumber("test", m_left.getPosition());
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_gyro);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_field);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_drive);
+        //Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("test", m_left.getPosition());
        
         m_frontLeftMotor.setInverted(true);
         m_backLeftMotor.setInverted(true);
@@ -84,16 +85,10 @@ public class Drivetrain extends SubsystemBase{
         m_frontRightMotor.setInverted(false);
         m_backRightMotor.setInverted(false);
 
-        
         m_backLeftMotor.follow(m_frontLeftMotor);
         m_backRightMotor.follow(m_frontRightMotor);
-        
-        
-        
+                
         m_isRedAlliance = isRed( DriverStation.getRawAllianceStation());
-
-        configureAutoBuilder();
-        
     }
 
    
@@ -105,16 +100,13 @@ public class Drivetrain extends SubsystemBase{
         SmartDashboard.putNumber("Left Encoder", getLeftEncoderMeters());
         SmartDashboard.putNumber("Right Encoder", getRightEncoderMeters());
 
+        // This should be the solution for our auto issues, so 
+        // maybe the solution I added like an hour ago might not work?
         m_drive.feed();
         m_drive.feedWatchdog();
-
-        
-        // Shuffleboard.getTab("Test Tab").add(m_leftPIDController);
-        // Shuffleboard.getTab("Test Tab").add(m_rightPIDController);
-        
-
-        
-
+ 
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_leftPIDController);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_rightPIDController); 
     }
 
     /**
@@ -130,8 +122,6 @@ public class Drivetrain extends SubsystemBase{
         m_drive.arcadeDrive(throttle, rotation);
     }
 
-
-    
     public void driveWithChassisSpeeds(ChassisSpeeds speeds){
         double x = speeds.vxMetersPerSecond;
         double y = speeds.vyMetersPerSecond;
@@ -141,19 +131,17 @@ public class Drivetrain extends SubsystemBase{
         setSpeeds(wheelSpeeds);
     }
 
-    
-
     // This is only called during auto, if you comment it out along with all of the other places it is referenced, it only affects the auto.
     public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
         final double leftOutput =
             m_leftPIDController.calculate(getLeftEncoderMetersPerSecond(), speeds.leftMetersPerSecond);
         final double rightOutput =
             m_rightPIDController.calculate(getRightEncoderMetersPerSecond(), speeds.rightMetersPerSecond);
-        m_frontLeftMotor.setVoltage(leftOutput);
-        m_backLeftMotor.setVoltage(leftOutput);
 
-        m_frontRightMotor.setVoltage(rightOutput);
-        m_backRightMotor.setVoltage(rightOutput);
+        // m_frontLeftMotor.setVoltage(leftOutput);
+        // m_backLeftMotor.setVoltage(leftOutput);
+        // m_frontRightMotor.setVoltage(rightOutput);
+        // m_backRightMotor.setVoltage(rightOutput);
 
         //Parameters:
             // xSpeed The robot's speed along the X axis [-1.0..1.0]. Forward is positive.
@@ -170,10 +158,8 @@ public class Drivetrain extends SubsystemBase{
 
         SmartDashboard.putNumber("test", rightOutput);
         SmartDashboard.putNumber("test2", leftOutput);
-      }
+    }
 
-      
-    
     public Pose2d getPose(){
         return m_odometry.getPoseMeters();
     }
@@ -182,7 +168,7 @@ public class Drivetrain extends SubsystemBase{
         m_odometry.resetPosition(m_gyro.getRotation2d(), getRightEncoderMeters(), getLeftEncoderMeters(), pose);
     }
 
-    private ChassisSpeeds getWheelSpeeds(){
+    public ChassisSpeeds getWheelSpeeds(){
         var wheelSpeeds = new DifferentialDriveWheelSpeeds(
         getLeftEncoderMetersPerSecond(), 
         getRightEncoderMetersPerSecond()
@@ -218,23 +204,7 @@ public class Drivetrain extends SubsystemBase{
         return wheelRotations * distancePerRevolution;
     }
 
-    
-
-    
-    /* Creates a pathplanner autobuilder for autonomous pathing */
-    
-    public void configureAutoBuilder() {
-        AutoBuilder.configureRamsete(
-        this::getPose, 
-        this::resetOdometry, 
-        this::getWheelSpeeds,
-        this::driveWithChassisSpeeds, 
-        new ReplanningConfig(),
-        this::flipPath, 
-        this);
-    }
-
-    private boolean flipPath(){
+    public boolean flipPath(){
         if (m_isRedAlliance == true){
           return true;
         }

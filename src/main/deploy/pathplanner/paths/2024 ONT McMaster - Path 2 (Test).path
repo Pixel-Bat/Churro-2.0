@@ -8,40 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0300818980016335,
-        "y": 5.352683137798709
+        "x": 1.4940688252076118,
+        "y": 7.132037727851397
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.623314958345622,
-        "y": 5.491353685412808
+        "x": 0.8045398771266701,
+        "y": 6.877947921655938
       },
       "prevControl": {
-        "x": 2.2889335868801775,
-        "y": 5.491353685412808
+        "x": 1.1863084903022594,
+        "y": 7.270995573085664
       },
       "nextControl": {
-        "x": 0.9576963298110679,
-        "y": 5.491353685412808
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 4.221076550259099,
-        "y": 6.572983956776192
-      },
-      "prevControl": {
-        "x": 2.936062809060446,
-        "y": 6.561979556389013
-      },
-      "nextControl": {
-        "x": 5.506090291457752,
-        "y": 6.5839883571633715
+        "x": 0.34077703685379795,
+        "y": 6.400483591434024
       },
       "isLocked": false,
       "linkedName": null
@@ -65,7 +49,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.65,
-      "maxWaypointRelativePos": 1.2,
+      "maxWaypointRelativePos": 1.1,
       "constraints": {
         "maxVelocity": 0.2,
         "maxAcceleration": 2.0,
@@ -77,7 +61,7 @@
   "eventMarkers": [
     {
       "name": "Score Note",
-      "waypointRelativePos": 0.9,
+      "waypointRelativePos": 1.05,
       "command": {
         "type": "sequential",
         "data": {

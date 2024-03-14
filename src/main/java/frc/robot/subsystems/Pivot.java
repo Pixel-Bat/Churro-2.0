@@ -7,14 +7,16 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.PivotID;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
-
+import frc.robot.Constants.ShooterConstants;
 import edu.wpi.first.   wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -26,11 +28,7 @@ public class Pivot extends SubsystemBase{
 
     private final DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
 
-    private final PIDController controller = new PIDController(PivotConstants.PIDConstants.kP, PivotConstants.PIDConstants.kI, PivotConstants.PIDConstants.kD);
-
-    private double desiredPos;
-
-    private double maintainPos;
+    public final PIDController leftPivotController = new PIDController(PivotConstants.PIDConstants.kP, PivotConstants.PIDConstants.kI, PivotConstants.PIDConstants.kD);
 
     private BooleanSupplier intakeCheckBoolSupplier;
     private BooleanSupplier speakerCheckBoolSupplier;
@@ -56,15 +54,12 @@ public class Pivot extends SubsystemBase{
 
     private double output = 0;
 
-   
-
     public Pivot() {
         //m_rightPivot.setInverted(true);
         m_leftPivot.setInverted(false);
         
         //m_rightPivot.follow(m_leftPivot, true);
         m_encoder.setDistancePerRotation(360/2);
-        desiredPos = m_encoder.getAbsolutePosition();
         intakeCheckBoolSupplier = () -> intakeBool;
         speakerCheckBoolSupplier = () -> speakerBool;
 
@@ -78,22 +73,24 @@ public class Pivot extends SubsystemBase{
         outputSupplier = () -> output;
         encoderAngle = () -> encoderInDegrees();
 
-        Shuffleboard.getTab("Test Tab").addBoolean("Source Height", intakeCheckBoolSupplier);
-        Shuffleboard.getTab("Test Tab").addBoolean("Speaker Height", speakerCheckBoolSupplier);
+        leftPivotController.setTolerance(encoderMargins, 0.04);
 
-        Shuffleboard.getTab("Test Tab").addBoolean("Source Up", intakeUpBoolSupplier);
-        Shuffleboard.getTab("Test Tab").addBoolean("Speaker Up", speakerUpBoolSupplier);
-        Shuffleboard.getTab("Test Tab").addBoolean("Source Down", intakeDownBoolSupplier);
-        Shuffleboard.getTab("Test Tab").addBoolean("Speaker Down", speakerDownBoolSupplier);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Height", intakeCheckBoolSupplier);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Height", speakerCheckBoolSupplier);
 
-        Shuffleboard.getTab("Test Tab").addNumber("Pivot Output", outputSupplier);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Up", intakeUpBoolSupplier);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Up", speakerUpBoolSupplier);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Down", intakeDownBoolSupplier);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Down", speakerDownBoolSupplier);
 
-        Shuffleboard.getTab("Test Tab").addNumber("Angle", encoderAngle);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("Pivot Output", outputSupplier);
+
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("Angle", encoderAngle);
         
-        Shuffleboard.getTab("Test Tab").addNumber("EncoderMargin", encoderMarginSupplier);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("EncoderMargin", encoderMarginSupplier);
 
-        Shuffleboard.getTab("Test Tab").add("Pivot", m_encoder);
-        Shuffleboard.getTab("Test Tab").add("PID", this.controller);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Pivot", m_encoder);
+        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("PID", this.leftPivotController);
     }
 
     public void periodic() {
@@ -130,35 +127,34 @@ public class Pivot extends SubsystemBase{
             intakeUpBool = false;
         }
 
-
-
-        SmartDashboard.putNumber("Pivot", encoderInDegrees());
-        SmartDashboard.putData(this.controller);
+        // SmartDashboard.putNumber("Pivot", encoderInDegrees());
+        // SmartDashboard.putData(this.controller);
         encoderAngle = () -> encoderInDegrees();
         encoderMarginSupplier = () -> encoderMargins;
         setPivotAngle(-RobotContainer.operatorController.getY());
     }
 
-
+    public Command autoArmHeight() {
+        return run(() -> {
+            setPivotAngle((PivotConstants.positions.speakerHeightMax + PivotConstants.positions.speakerHeightMin) / 2);
+        });
+    }
 
     public double encoderInDegrees() {
         return m_encoder.getAbsolutePosition() * 180;
     }
 
     public void setPivotAngle(double input) {
-        // //if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
-            m_leftPivot.set(input/5);
-        
-        //     //m_rightPivot.set(input/10);
-        // //}
+        if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
+            // Should be (encoderValue, then setpoint)
+            double output = leftPivotController.calculate(encoderInDegrees(), (PivotConstants.positions.speakerHeightMax + PivotConstants.positions.speakerHeightMin) / 2);
+            if (output > 0.2)
+            output = 0.2;
 
-        // if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
-        //     double output = controller.calculate(180);
-        //     if (output > 0.2 || output < -0.2) {
-        //         output = 0.2;
-        //     }
+            if (output < -0.2)
+                output = -0.2;
 
-        //     m_leftPivot.set(output / 2);
-        // }
+            m_leftPivot.set(output / 2);
+        }
     }
 }
