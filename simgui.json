@@ -10,27 +10,17 @@
         "header": {
           "open": true
         }
-      },
-      "SPARK MAX [2]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [3]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [4]": {
-        "header": {
-          "open": true
-        }
       }
     }
   },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/Driver Station/ADXRS450_Gyro[0]": "Gyro",
+      "/Shuffleboard/Driver Station/Auto Mode": "String Chooser",
+      "/Shuffleboard/Driver Station/DifferentialDrive[1]": "DifferentialDrive",
+      "/Shuffleboard/Driver Station/Field": "Field2d",
+      "/Shuffleboard/Driver Station/PID": "PIDController",
       "/Shuffleboard/Drivetrain/ADXRS450_Gyro[0]": "Gyro",
       "/Shuffleboard/Test Tab/ADXRS450_Gyro[0]": "Gyro",
       "/Shuffleboard/Test Tab/Auto Mode": "String Chooser",
@@ -55,8 +45,5 @@
         }
       }
     }
-  },
-  "NetworkTables Info": {
-    "visible": true
   }
 }

@@ -9,13 +9,17 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+import com.revrobotics.REVPhysicsSim;
+
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +35,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorCANID;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotConstants;
+import edu.wpi.first.wpilibj.simulation.ADXRS450_GyroSim;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
 
@@ -49,7 +54,9 @@ public class Drivetrain extends SubsystemBase{
     private final RelativeEncoder m_left = m_frontLeftMotor.getEncoder();
     private final RelativeEncoder m_right = m_frontRightMotor.getEncoder();
 
+
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+    private final ADXRS450_GyroSim m_gyroSim = new ADXRS450_GyroSim(m_gyro);
 
     private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
         m_gyro.getRotation2d(),
@@ -70,8 +77,10 @@ public class Drivetrain extends SubsystemBase{
 
     private final Boolean m_isRedAlliance;
 
-    private final PIDController m_leftPIDController = new PIDController(1, 0, 0);
-    private final PIDController m_rightPIDController = new PIDController(1, 0, 0);
+    private final ProfiledPIDController m_leftPIDController = new ProfiledPIDController(
+        1, 0, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
+    private final ProfiledPIDController m_rightPIDController = new ProfiledPIDController(
+        1, 0, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
 
     public Drivetrain() {
         configureAutoBuilder();
