@@ -26,8 +26,8 @@ public final class Constants {
     public static final double WHEEL_DIAMETER_IN = 6;
     public static final double ROBOT_WIDTH = 21.875; //width between wheels in inches
 
-    public static final double MAX_VELOCITY = 5;
-    public static final double MAX_ACCELERATION = 2;
+    public static final double MAX_VELOCITY = 3;
+    public static final double MAX_ACCELERATION = 0.5;
   }
 
   public static class MotorCANID {
