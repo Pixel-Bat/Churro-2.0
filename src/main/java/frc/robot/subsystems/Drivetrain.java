@@ -78,14 +78,14 @@ public class Drivetrain extends SubsystemBase{
     private final Boolean m_isRedAlliance;
 
     private final ProfiledPIDController m_leftPIDProfiledController = new ProfiledPIDController(
-        1, 0, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
+        0.5, 0.001, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
     private final ProfiledPIDController m_rightPIDProfiledController = new ProfiledPIDController(
-        1, 0, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
+        0.5, 0.001, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
 
     private final PIDController m_leftPIDController = new PIDController(
-        1, 0, 0);
+        0.5, 0.01, 0);
     private final PIDController m_rightPIDController = new PIDController(
-        1, 0, 0);
+        0.5, 0.01, 0);
     
     public Drivetrain() {
         configureAutoBuilder();
