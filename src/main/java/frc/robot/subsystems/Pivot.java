@@ -70,7 +70,7 @@ public class Pivot extends SubsystemBase{
 
         encoderMarginSupplier = () -> encoderMargins;
 
-        outputSupplier = () -> output;
+        outputSupplier = () -> output/4;
         encoderAngle = () -> encoderInDegrees();
 
         leftPivotController.setTolerance(encoderMargins, 0.04);
@@ -132,6 +132,7 @@ public class Pivot extends SubsystemBase{
         encoderAngle = () -> encoderInDegrees();
         encoderMarginSupplier = () -> encoderMargins;
         setPivotAngle(-RobotContainer.operatorController.getY());
+        outputSupplier = () -> output/4;
     }
 
     public Command autoArmHeight() {
@@ -145,16 +146,16 @@ public class Pivot extends SubsystemBase{
     }
 
     public void setPivotAngle(double input) {
-        if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
+       // if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
             // Should be (encoderValue, then setpoint)
-            double output = leftPivotController.calculate(encoderInDegrees(), (PivotConstants.positions.speakerHeightMax + PivotConstants.positions.speakerHeightMin) / 2);
-            if (output > 0.2)
-            output = 0.2;
+            output = leftPivotController.calculate(encoderInDegrees(), (PivotConstants.positions.speakerHeightMax + PivotConstants.positions.speakerHeightMin) / 2);
+            if (output > 0.3)
+            output = 0.3;
 
-            if (output < -0.2)
-                output = -0.2;
+            if (output < -0.3)
+                output = -0.3;
 
-            m_leftPivot.set(output / 2);
-        }
+            m_leftPivot.set(-output / 4);
+        //}
     }
 }
