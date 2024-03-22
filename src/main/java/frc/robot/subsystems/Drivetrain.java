@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.HashMap;
-import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -9,35 +7,26 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
-import com.revrobotics.REVPhysicsSim;
-
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
+//import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
+//import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.MotorCANID;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotConstants;
-import edu.wpi.first.wpilibj.simulation.ADXRS450_GyroSim;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
-import edu.wpi.first.wpilibj.simulation.EncoderSim;
 
 
 
@@ -56,7 +45,7 @@ public class Drivetrain extends SubsystemBase{
 
 
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
-    private final ADXRS450_GyroSim m_gyroSim = new ADXRS450_GyroSim(m_gyro);
+    //private final ADXRS450_GyroSim m_gyroSim = new ADXRS450_GyroSim(m_gyro);
 
     private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
         m_gyro.getRotation2d(),
@@ -77,10 +66,10 @@ public class Drivetrain extends SubsystemBase{
 
     private final Boolean m_isRedAlliance;
 
-    private final ProfiledPIDController m_leftPIDProfiledController = new ProfiledPIDController(
-        0.5, 0.001, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
-    private final ProfiledPIDController m_rightPIDProfiledController = new ProfiledPIDController(
-        0.5, 0.001, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
+    // private final ProfiledPIDController m_leftPIDProfiledController = new ProfiledPIDController(
+    //     0.5, 0.001, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
+    // private final ProfiledPIDController m_rightPIDProfiledController = new ProfiledPIDController(
+    //     0.5, 0.001, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
 
     private final PIDController m_leftPIDController = new PIDController(
         0.5, 0.01, 0);
@@ -138,6 +127,10 @@ public class Drivetrain extends SubsystemBase{
         m_drive.arcadeDrive(throttle, rotation);
     }
 
+    public void tankDrive(double left, double right) {
+        m_drive.tankDrive(left, right);
+    }
+
     public void driveWithChassisSpeeds(ChassisSpeeds speeds){
         double x = speeds.vxMetersPerSecond;
         double y = speeds.vyMetersPerSecond;
@@ -170,7 +163,7 @@ public class Drivetrain extends SubsystemBase{
             My thinking was that we could take the average of the leftOutput + rightOutput as forward, and average of leftOuput
             minus rightOutput for rotation.
         */
-        m_drive.arcadeDrive((leftOutput + rightOutput) / 2, (leftOutput - rightOutput) / 2);
+        m_drive.tankDrive(rightOutput, leftOutput);
 
         SmartDashboard.putNumber("test", rightOutput);
         SmartDashboard.putNumber("test2", leftOutput);
