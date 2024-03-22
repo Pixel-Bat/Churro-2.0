@@ -98,7 +98,7 @@ public class Drivetrain extends SubsystemBase{
 
    
     public void periodic() {
-        m_odometry.update(m_gyro.getRotation2d(), getRightEncoderMeters(), getLeftEncoderMeters());
+        m_odometry.update(m_gyro.getRotation2d().unaryMinus(), getRightEncoderMeters(), getLeftEncoderMeters());
         m_field.setRobotPose(getPose());
         SmartDashboard.putData("Field", m_field);
         SmartDashboard.putData("Gyro Heading", m_gyro);
@@ -163,7 +163,7 @@ public class Drivetrain extends SubsystemBase{
             My thinking was that we could take the average of the leftOutput + rightOutput as forward, and average of leftOuput
             minus rightOutput for rotation.
         */
-        m_drive.tankDrive(rightOutput, leftOutput);
+        m_drive.tankDrive(leftOutput, rightOutput);
 
         SmartDashboard.putNumber("test", rightOutput);
         SmartDashboard.putNumber("test2", leftOutput);
