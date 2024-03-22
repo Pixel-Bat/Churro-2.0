@@ -54,7 +54,7 @@ public final class Constants {
   public static class ShooterConstants {
     public static final double shooterSpeedIn = -0.6;
     public static final double shooterSpeedOut = 1;
-    public static final double ampSpeedOut = 0.3;
+    public static final double ampSpeedOut = 0.1;
 
     public static final double holderSpeedIn = -0.5;
     public static final double holderSpeedOut = 0.5;
@@ -62,7 +62,7 @@ public final class Constants {
 
   public static class PivotConstants {
     public class PIDConstants {
-      public static final double kP = 0.085;
+      public static final double kP = 0.007;
       public static final double kI = 0;
       public static final double kD = 0;
     }
@@ -78,6 +78,11 @@ public final class Constants {
 
       public static final double speakerHeightMin = 70.5;
       public static final double speakerHeightMax = 73;
+
+      public static final double speakerHeight = 154;
+      public static final double sourceHeight = 117;
+      public static final double ampHeight = 140;
+      public static final double intakeHeight = 20;
     }
   }
 

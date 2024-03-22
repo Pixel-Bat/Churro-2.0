@@ -7,19 +7,13 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.PivotID;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
-import frc.robot.Constants.ShooterConstants;
-import edu.wpi.first.   wpilibj2.command.button.CommandJoystick;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class Pivot extends SubsystemBase{
 
@@ -70,7 +64,7 @@ public class Pivot extends SubsystemBase{
 
         encoderMarginSupplier = () -> encoderMargins;
 
-        outputSupplier = () -> output/4;
+        outputSupplier = () -> output;
         encoderAngle = () -> encoderInDegrees();
 
         leftPivotController.setTolerance(encoderMargins, 0.04);
@@ -131,8 +125,8 @@ public class Pivot extends SubsystemBase{
         // SmartDashboard.putData(this.controller);
         encoderAngle = () -> encoderInDegrees();
         encoderMarginSupplier = () -> encoderMargins;
-        setPivotAngle(-RobotContainer.operatorController.getY());
-        outputSupplier = () -> output/4;
+        //setPivotAngle(-RobotContainer.operatorController.getY());
+        outputSupplier = () -> output;
     }
 
     public Command autoArmHeight() {
@@ -148,14 +142,39 @@ public class Pivot extends SubsystemBase{
     public void setPivotAngle(double input) {
        // if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
             // Should be (encoderValue, then setpoint)
-            output = leftPivotController.calculate(encoderInDegrees(), (PivotConstants.positions.speakerHeightMax + PivotConstants.positions.speakerHeightMin) / 2);
-            if (output > 0.3)
-            output = 0.3;
+            output = leftPivotController.calculate(encoderInDegrees(), input);
+            if (output > 0.4)
+            output = 0.4;
 
-            if (output < -0.3)
-                output = -0.3;
+            if (output < -0.4)
+                output = -0.4;
 
-            m_leftPivot.set(-output / 4);
+            m_leftPivot.set(-output);
         //}
+    }
+
+
+    public Command speakerPos() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.speakerHeight);
+        });
+    }
+
+    public Command ampPos() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.ampHeight);
+        });
+    }
+
+    public Command sourcePos() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.sourceHeight);
+        });
+    }
+
+    public Command intakePos() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.intakeHeight);
+        });
     }
 }

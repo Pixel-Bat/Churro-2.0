@@ -8,18 +8,15 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.SpeakerArmHeight;
 
-import java.util.HashMap;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -69,8 +66,8 @@ public class RobotContainer {
         drivetrain,
         // () -> 1.2 * Math.pow(-this.driveController.getLeftY(), 3),
         // () -> Math.pow(this.driveController.getRightX(), 3)
-        () -> -this.driveController.getLeftY() / 1.2,
-        () -> this.driveController.getRightX()/1.05
+        () -> Math.pow(-this.driveController.getLeftY() / 1, 3),
+        () -> Math.pow(this.driveController.getRightX()/1.2, 3)
       )
     );
   }
@@ -81,10 +78,11 @@ public class RobotContainer {
     operatorController.button(3).whileTrue(intake.amp());
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());
-    //driveController.y().whileTrue(noteHolder.shoot());
 
-    //operatorController.button(1).whileTrue(pivot.customPos(operatorController.getY()));
-    //operatorController.button(1).whileTrue(pivot.intakePos());    
+    operatorController.button(8).onTrue(pivot.speakerPos());
+    operatorController.button(10).onTrue(pivot.ampPos());
+    operatorController.button(12).onTrue(pivot.sourcePos());
+    operatorController.button(11).onTrue(pivot.intakePos());   
   }
 
   private void setupAutoChoosers(){ 
