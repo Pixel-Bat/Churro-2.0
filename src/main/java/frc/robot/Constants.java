@@ -28,6 +28,9 @@ public final class Constants {
 
     public static final double MAX_VELOCITY = 3;
     public static final double MAX_ACCELERATION = 0.5;
+
+    
+    public static final int driveCurrentLimit = 60;
   }
 
   public static class MotorCANID {
@@ -52,6 +55,9 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
+
+    public static final int shooterCurrentLimit = 60;
+
     public static final double shooterSpeedIn = -0.6;
     public static final double shooterSpeedOut = 1;
     public static final double ampSpeedOut = 0.1;
@@ -61,6 +67,9 @@ public final class Constants {
   }
 
   public static class PivotConstants {
+
+    public static final int pivotCurrentLimit = 40;
+
     public class PIDConstants {
       public static final double kP = 0.007;
       public static final double kI = 0;

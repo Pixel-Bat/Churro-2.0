@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.PivotID;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.RobotConstants;
 
 public class Pivot extends SubsystemBase{
 
@@ -49,6 +50,17 @@ public class Pivot extends SubsystemBase{
     private double output = 0;
 
     public Pivot() {
+
+        // factory reset spark max
+        m_leftPivot.restoreFactoryDefaults();
+        //m_rightPivot.restoreFactoryDefaults();
+
+        // set current limit for spark max
+        m_leftPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+        //m_rightPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+
+
+        // invert right pivot motor
         //m_rightPivot.setInverted(true);
         m_leftPivot.setInverted(false);
         

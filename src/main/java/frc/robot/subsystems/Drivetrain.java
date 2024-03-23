@@ -83,16 +83,33 @@ public class Drivetrain extends SubsystemBase{
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_field);
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add(m_drive);
         //Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("test", m_left.getPosition());
-       
+        
+        // reset factory settings for all motor controllers
+        m_frontLeftMotor.restoreFactoryDefaults();
+        m_backLeftMotor.restoreFactoryDefaults();
+        m_frontRightMotor.restoreFactoryDefaults();
+        m_backRightMotor.restoreFactoryDefaults();
+
+        // set current limits for all motor controllers
+        m_frontLeftMotor.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+        m_backLeftMotor.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+        m_frontRightMotor.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+        m_backRightMotor.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+
+
+        // invert the left motors and leave the right motors not inverted
         m_frontLeftMotor.setInverted(true);
         m_backLeftMotor.setInverted(true);
 
         m_frontRightMotor.setInverted(false);
         m_backRightMotor.setInverted(false);
 
+
+        // link the motors on the left together and the motors on the right together
         m_backLeftMotor.follow(m_frontLeftMotor);
         m_backRightMotor.follow(m_frontRightMotor);
-                
+        
+        // set our alliance colour for path planner to flip the path
         m_isRedAlliance = isRed( DriverStation.getRawAllianceStation());
     }
 
