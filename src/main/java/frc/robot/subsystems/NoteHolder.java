@@ -18,6 +18,10 @@ public class NoteHolder extends SubsystemBase{
         
     }
     
+    public void setHolderSpeed(double speed) {
+        holdingMotor.set(ControlMode.PercentOutput, speed);
+    }
+
     public Command intake() {
         return runEnd(() -> {
             holdingMotor.set(ControlMode.PercentOutput, ShooterConstants.holderSpeedIn);
@@ -27,10 +31,8 @@ public class NoteHolder extends SubsystemBase{
     }
     
     public Command shoot() {
-        return runEnd(() -> {
+        return run(() -> {
             holdingMotor.set(ControlMode.PercentOutput, ShooterConstants.holderSpeedOut);
-        }, () -> {
-            holdingMotor.set(ControlMode.PercentOutput, 0);
         });
     }
 }

@@ -5,9 +5,6 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.SpeakerArmHeight;
-
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -19,8 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 
 import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,14 +39,15 @@ public class RobotContainer {
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController driveController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandPS5Controller driveController = new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
   public static final CommandJoystick operatorController = new CommandJoystick(OperatorConstants.kOperatorControllerPort);
-  private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+  private final SendableChooser<Command> autoChooser; // Default auto will be `Commands.none()`
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     defineAutoCommands();
+    autoChooser = AutoBuilder.buildAutoChooser();
     setupDefaultCommands();
     configureBindings();
     setupAutoChoosers();
@@ -55,9 +55,11 @@ public class RobotContainer {
 
   public void defineAutoCommands() {
     // Setting up NamedCommands from the PathPlanner Auto
-    NamedCommands.registerCommand("setArmHeight", new SpeakerArmHeight(pivot));
-    NamedCommands.registerCommand("startShooter", intake.shoot());
-    NamedCommands.registerCommand("shootNote", noteHolder.shoot());
+    NamedCommands.registerCommand("setArmHeight", pivot.sourcePos());
+    NamedCommands.registerCommand("startShooter", new ShooterShoot(intake));
+    NamedCommands.registerCommand("stopShooter", new StopShooter(intake));
+    NamedCommands.registerCommand("stopHolder", new StopHolder(noteHolder));
+    NamedCommands.registerCommand("shootNote", new HolderShoot(noteHolder));
   }
 
   private void setupDefaultCommands(){
@@ -79,10 +81,17 @@ public class RobotContainer {
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());
 
+    // operatorController.button(8).onTrue(new PivotSpeaker(pivot));
+    // operatorController.button(10).onTrue(new PivotAmp(pivot));
+    // operatorController.button(12).onTrue(new PivotSource(pivot));
+    // operatorController.button(11).onTrue(new PivotIntake(pivot));   
+
     operatorController.button(8).onTrue(pivot.speakerPos());
     operatorController.button(10).onTrue(pivot.ampPos());
     operatorController.button(12).onTrue(pivot.sourcePos());
-    operatorController.button(11).onTrue(pivot.intakePos());   
+    operatorController.button(11).onTrue(pivot.intakePos());
+
+
   }
 
   private void setupAutoChoosers(){ 

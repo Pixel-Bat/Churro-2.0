@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.234441105733733,
-        "y": 7.0050704681015805
+        "x": 1.3421030350832635,
+        "y": 7.006492609476448
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.29962790515921,
+        "x": 3.0015953014362173,
         "y": 7.0
       },
       "prevControl": {
-        "x": 7.418486965775364,
-        "y": 6.990384785778517
+        "x": 2.5300455864069624,
+        "y": 6.979287818224759
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,10 +30,92 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "race",
+              "data": {
+                "commands": [
+                  {
+                    "type": "parallel",
+                    "data": {
+                      "commands": [
+                        {
+                          "type": "named",
+                          "data": {
+                            "name": "startShooter"
+                          }
+                        },
+                        {
+                          "type": "sequential",
+                          "data": {
+                            "commands": [
+                              {
+                                "type": "wait",
+                                "data": {
+                                  "waitTime": 0.1
+                                }
+                              },
+                              {
+                                "type": "named",
+                                "data": {
+                                  "name": "shootNote"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "wait",
+                    "data": {
+                      "waitTime": 1.0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.3
+              }
+            },
+            {
+              "type": "parallel",
+              "data": {
+                "commands": [
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "stopShooter"
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "stopHolder"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 1.5,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 2.6,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

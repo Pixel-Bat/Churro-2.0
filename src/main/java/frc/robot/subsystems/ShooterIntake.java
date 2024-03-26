@@ -26,6 +26,10 @@ public class ShooterIntake extends SubsystemBase{
         
     }
 
+    public void setShooterSpeed(double input) {
+        m_shooterMotor.set(input);
+    }
+
     public Command intake() {
         return runEnd(() -> {
             m_shooterMotor.set(ShooterConstants.shooterSpeedIn);
@@ -35,10 +39,8 @@ public class ShooterIntake extends SubsystemBase{
     }
 
     public Command shoot() {
-        return runEnd(() -> {
+        return run(() -> {
             m_shooterMotor.set(ShooterConstants.shooterSpeedOut);
-        }, () -> {
-            m_shooterMotor.set(0);
         });
     }
 

@@ -72,9 +72,9 @@ public class Drivetrain extends SubsystemBase{
     //     0.5, 0.001, 0,  new TrapezoidProfile.Constraints(RobotConstants.MAX_VELOCITY, RobotConstants.MAX_ACCELERATION));
 
     private final PIDController m_leftPIDController = new PIDController(
-        0.5, 0.01, 0);
+        0.6, 0, 0);
     private final PIDController m_rightPIDController = new PIDController(
-        0.5, 0.01, 0);
+        0.6, 0, 0);
     
     public Drivetrain() {
         configureAutoBuilder();
