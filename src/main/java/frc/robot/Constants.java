@@ -47,6 +47,12 @@ public final class Constants {
       public static final int intakeMotorCANID = 8;
       public static final int holdingMotorCANID = 10;
     }
+
+    public class BumperIntakeID {
+      public static final int bumperIntakeMotorCANID = 8; // chqnge later
+      // public static final int holdingMotorCANID = 10;
+    }
+    
     
     public class PivotID {
       public static final int leftPivotMotorCANID = 6;
@@ -64,6 +70,18 @@ public final class Constants {
 
     public static final double holderSpeedIn = -0.5;
     public static final double holderSpeedOut = 0.5;
+  }
+
+  public static class BumperConstants {
+
+    public static final int bumperCurrentLimit = 60;
+
+    public static final double bumperSpeedIn = -0.6;
+    public static final double bumperSpeedOut = 1;
+    //public static final double ampSpeedOut = 0.1;
+
+    //public static final double holderSpeedIn = -0.5;
+    //public static final double holderSpeedOut = 0.5;
   }
 
   public static class PivotConstants {
