@@ -44,14 +44,12 @@ public final class Constants {
     }
     
     public class IntakeID {
-      public static final int intakeMotorCANID = 8;
+      public static final int shooterMotorCANID = 8;
       public static final int holdingMotorCANID = 10;
+      public static final int bumperIntakeMotorCANID = 12;
     }
 
-    public class BumperIntakeID {
-      public static final int bumperIntakeMotorCANID = 8; // chqnge later
-      // public static final int holdingMotorCANID = 10;
-    }
+
     
     
     public class PivotID {

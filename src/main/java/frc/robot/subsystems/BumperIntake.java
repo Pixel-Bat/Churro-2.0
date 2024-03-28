@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
    
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.MotorCANID.BumperIntakeID;
+import frc.robot.Constants.MotorCANID.IntakeID;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.BumperConstants;
 
@@ -13,7 +13,7 @@ import frc.robot.Constants.BumperConstants;
 
 public class BumperIntake extends SubsystemBase{
     
-    private final TalonSRX m_bumperMotor = new TalonSRX(BumperIntakeID.bumperIntakeMotorCANID); //Different motor
+    private final TalonSRX m_bumperMotor = new TalonSRX(IntakeID.bumperIntakeMotorCANID); //Different motor
 
     public void setHolderSpeed(double speed) {
         m_bumperMotor.set(ControlMode.PercentOutput, speed);
