@@ -46,6 +46,8 @@ public class RobotContainer {
 
   private final Pivot pivot = new Pivot();
 
+  private final PowerHub powerHub = new PowerHub();
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandPS5Controller driveController = new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
@@ -78,6 +80,8 @@ public class RobotContainer {
         () -> this.driveController.getRightX()/1.05
       )
     );
+
+    powerHub.setDefaultCommand(powerHub.retract());
   }
 
   private void configureBindings() {
