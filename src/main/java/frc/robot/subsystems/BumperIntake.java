@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.BumperIntakeID;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.BumperConstants;
 
 
@@ -27,8 +28,27 @@ public class BumperIntake extends SubsystemBase{
     }
     
     public Command release() {
-        return run(() -> {
+        return runEnd(() -> {
             m_bumperMotor.set(ControlMode.PercentOutput, BumperConstants.bumperSpeedOut);
+        }, () -> {
+            m_bumperMotor.set(ControlMode.PercentOutput, 0);
+        });
+    }
+
+
+
+
+    
+
+    public Command intakeNoEnd() {
+        return run(() -> {
+            m_bumperMotor.set(ControlMode.PercentOutput, BumperConstants.bumperSpeedIn);
+        });
+    }
+
+    public Command stop() {
+        return runOnce(() -> {
+            m_bumperMotor.set(ControlMode.PercentOutput, 0);
         });
     }
 }

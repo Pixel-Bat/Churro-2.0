@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.GroundIntakeStart;
 import frc.robot.commands.SpeakerArmHeight;
 
 import java.util.HashMap;
@@ -86,7 +87,8 @@ public class RobotContainer {
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());
 
-    operatorController.button(5).whileTrue(bumperIntake.intake()); //New code
+    driveController.button(5).onTrue(new GroundIntakeStart(pivot, intake, noteHolder, bumperIntake)); 
+    //New code
 
     //operatorController.button(7).whileTrue(groundintake.groundIn());
     

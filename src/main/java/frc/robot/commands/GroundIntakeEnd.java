@@ -21,9 +21,9 @@ public class GroundIntakeEnd extends SequentialCommandGroup{
 
         addCommands(
             new ParallelCommandGroup(
-                bumperIntake.intake(),
-                armIntake.intake(),
-                noteHolder.intake()
+                    bumperIntake.stop(),
+                    armIntake.stop(),
+                    noteHolder.stop()
             ) 
         );
     }

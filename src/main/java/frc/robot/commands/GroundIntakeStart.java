@@ -29,9 +29,18 @@ public class GroundIntakeStart extends SequentialCommandGroup{
             ), 
             new WaitCommand(0.4),
             new ParallelCommandGroup(
-                bumperIntake.intake(),
-                armIntake.intake(),
-                noteHolder.intake()
+                new ParallelRaceGroup(
+                    bumperIntake.intakeNoEnd(),
+                    new WaitCommand(0.1)
+                ),
+                new ParallelRaceGroup(
+                    armIntake.intakeNoEnd(),
+                    new WaitCommand(0.1)
+                ),
+                new ParallelRaceGroup(
+                    noteHolder.intakeNoEnd(),
+                    new WaitCommand(0.1)
+                )
             ) 
         );
     }
