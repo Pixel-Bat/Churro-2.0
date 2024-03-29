@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 2.0,
-        "y": 6.5
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.74865716545412,
-        "y": 6.858954768165612
+        "x": 3.0,
+        "y": 7.0
       },
       "isLocked": false,
-      "linkedName": "Turn Around Point"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.9,
+        "x": 3.130267727440643,
         "y": 7.0
       },
       "prevControl": {
-        "x": 2.146327011795348,
-        "y": 7.812782995870107
+        "x": 2.4400406582566303,
+        "y": 6.975699103455452
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Pick Up Note"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -43,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 Note Auto Top",
+  "folder": null,
   "previewStartingState": {
-    "rotation": -166.504266719204,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

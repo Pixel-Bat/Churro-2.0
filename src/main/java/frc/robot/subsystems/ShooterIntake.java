@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorCANID.IntakeID;
 import frc.robot.Constants.RobotConstants;
@@ -65,9 +66,11 @@ public class ShooterIntake extends SubsystemBase{
     }
 
     public Command shootNoEnd() {
-        return run(() -> {
+        System.out.println("testest");
+        return runOnce(() -> {
             m_shooterMotor.set(ShooterConstants.shooterSpeedOut);
-        });
+        }       
+        );
     }
 
     public Command stop() {

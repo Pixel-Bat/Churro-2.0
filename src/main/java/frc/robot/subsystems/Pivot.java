@@ -49,6 +49,8 @@ public class Pivot extends SubsystemBase{
 
     private double output = 0;
 
+    
+
     public Pivot() {
 
         // factory reset spark max
@@ -80,6 +82,8 @@ public class Pivot extends SubsystemBase{
         encoderAngle = () -> encoderInDegrees();
 
         leftPivotController.setTolerance(encoderMargins, 0.04);
+
+        setPivotAngle(PivotConstants.positions.intakeHeight);
 
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Height", intakeCheckBoolSupplier);
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Height", speakerCheckBoolSupplier);
@@ -137,7 +141,7 @@ public class Pivot extends SubsystemBase{
         // SmartDashboard.putData(this.controller);
         encoderAngle = () -> encoderInDegrees();
         encoderMarginSupplier = () -> encoderMargins;
-        //setPivotAngle(-RobotContainer.operatorController.getY());
+        runPID();
         outputSupplier = () -> output;
     }
 
@@ -154,15 +158,20 @@ public class Pivot extends SubsystemBase{
     public void setPivotAngle(double input) {
        // if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
             // Should be (encoderValue, then setpoint)
-            output = leftPivotController.calculate(encoderInDegrees(), input);
-            if (output > 0.4)
-            output = 0.4;
-
-            if (output < -0.4)
-                output = -0.4;
-
-            m_leftPivot.set(-output);
+            leftPivotController.setSetpoint(input);
+            
         //}
+    }
+
+    public void runPID() {
+        output = leftPivotController.calculate(encoderInDegrees());
+        if (output > 0.4)
+        output = 0.4;
+
+        if (output < -0.4)
+            output = -0.4;
+
+        m_leftPivot.set(-output);
     }
 
 
@@ -187,6 +196,18 @@ public class Pivot extends SubsystemBase{
     public Command intakePos() {
         return run(() -> {
             setPivotAngle(PivotConstants.positions.intakeHeight);
+        });
+    }
+
+    public Command flatPos() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.flatHeight);
+        });
+    }
+
+    public Command ampPos2() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.ampHeight2);
         });
     }
 }

@@ -45,7 +45,7 @@ public class RobotContainer {
 
   private final BumperIntake bumperIntake = new BumperIntake();
 
-  //private final GroundIntake groundintake = new GroundIntake();
+  private final BumperIntake groundintake = new BumperIntake();
 
   private final Pivot pivot = new Pivot();
 
@@ -99,14 +99,18 @@ public class RobotContainer {
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());
 
-    operatorController.button(8).whileTrue(pivot.intakePos());
-    operatorController.button(9).whileTrue(pivot.ampPos());
-    operatorController.button(10).whileTrue(pivot.speakerPos());
-    operatorController.button(11).whileTrue(pivot.sourcePos());
-
+    operatorController.button(11).whileTrue(pivot.intakePos());
+    operatorController.button(8).whileTrue(pivot.ampPos());
+    operatorController.button(12).whileTrue(pivot.speakerPos());
+    operatorController.button(10).whileTrue(pivot.sourcePos());
+    operatorController.button(9).whileTrue(pivot.flatPos());
+    operatorController.button(7).whileTrue(pivot.ampPos2());
     
 
-    driveController.button(6).onTrue(new GroundIntakeToggle(pivot, shooter, noteHolder, bumperIntake)); 
+    driveController.button(6).whileTrue(bumperIntake.intake()); 
+    driveController.button(6).whileTrue(shooter.intake());
+    
+    driveController.button(5).whileTrue(pivot.intakePos()); 
     //New code
 
     //operatorController.button(7).whileTrue(groundintake.groundIn());
@@ -121,6 +125,7 @@ public class RobotContainer {
     new PathPlannerAuto("Example Auto");
     new PathPlannerAuto("2024 ONT McMaster Auto 1");
     new PathPlannerAuto("2024 ONT McMaster Auto 2 (Test)");
+    new PathPlannerAuto("NO MOVEMENT TESTING ONLY");
     SmartDashboard.putData("Auto Mode", autoChooser);
     Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Auto Mode", autoChooser);
   }
