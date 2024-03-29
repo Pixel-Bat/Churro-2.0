@@ -5,26 +5,29 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.GroundIntakeStart;
-import frc.robot.commands.SpeakerArmHeight;
-
-import java.util.HashMap;
+// import frc.robot.commands.ArcadeDrive;
+// import frc.robot.commands.GroundIntakeToggle;
+// import frc.robot.commands.SpeakerArmHeight;
+// import frc.robot.commands.StopHolder;
+// import frc.robot.commands.StopShooter;
+// import frc.robot.commands.GroundIntakeStart;
+// import frc.robot.commands.GroundIntakeEnd;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.util.ReplanningConfig;
+// import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+// import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 
 import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,7 +39,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain();
 
-  private final ShooterIntake intake = new ShooterIntake();
+  private final ShooterIntake shooter = new ShooterIntake();
 
   private final NoteHolder noteHolder = new NoteHolder();
 
@@ -65,9 +68,14 @@ public class RobotContainer {
 
   public void defineAutoCommands() {
     // Setting up NamedCommands from the PathPlanner Auto
-    NamedCommands.registerCommand("setArmHeight", new SpeakerArmHeight(pivot));
-    NamedCommands.registerCommand("startShooter", intake.shoot());
-    NamedCommands.registerCommand("shootNote", noteHolder.shoot());
+    NamedCommands.registerCommand("setIntakePos", pivot.intakePos());
+    NamedCommands.registerCommand("setShootPos", pivot.speakerPos());
+    NamedCommands.registerCommand("startShooter", shooter.shootNoEnd());
+    NamedCommands.registerCommand("shootNote", noteHolder.shootNoEnd());
+    NamedCommands.registerCommand("stopShooter", new StopShooter(shooter));
+    NamedCommands.registerCommand("stopHolder", new StopHolder(noteHolder));
+    NamedCommands.registerCommand("groundIntakeStart", new GroundIntakeStart(pivot, shooter, noteHolder, bumperIntake));
+    NamedCommands.registerCommand("groundIntakeStop", new GroundIntakeEnd(shooter, noteHolder, bumperIntake));
   }
 
   private void setupDefaultCommands(){
@@ -85,13 +93,20 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    operatorController.button(1).whileTrue(intake.shoot());
-    operatorController.button(2).whileTrue(intake.intake());
-    operatorController.button(3).whileTrue(intake.amp());
+    operatorController.button(1).whileTrue(shooter.shoot());
+    operatorController.button(2).whileTrue(shooter.intake());
+    operatorController.button(3).whileTrue(shooter.amp());
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());
 
-    driveController.button(5).onTrue(new GroundIntakeStart(pivot, intake, noteHolder, bumperIntake)); 
+    operatorController.button(8).whileTrue(pivot.intakePos());
+    operatorController.button(9).whileTrue(pivot.ampPos());
+    operatorController.button(10).whileTrue(pivot.speakerPos());
+    operatorController.button(11).whileTrue(pivot.sourcePos());
+
+    
+
+    driveController.button(6).onTrue(new GroundIntakeToggle(pivot, shooter, noteHolder, bumperIntake)); 
     //New code
 
     //operatorController.button(7).whileTrue(groundintake.groundIn());

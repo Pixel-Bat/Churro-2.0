@@ -64,6 +64,12 @@ public class ShooterIntake extends SubsystemBase{
         });
     }
 
+    public Command shootNoEnd() {
+        return run(() -> {
+            m_shooterMotor.set(ShooterConstants.shooterSpeedOut);
+        });
+    }
+
     public Command stop() {
         return runOnce(() -> {
             m_shooterMotor.set(0);

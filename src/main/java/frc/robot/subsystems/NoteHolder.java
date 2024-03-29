@@ -46,6 +46,12 @@ public class NoteHolder extends SubsystemBase{
         });
     }
 
+    public Command shootNoEnd() {
+        return run(() -> {
+            holdingMotor.set(ControlMode.PercentOutput, ShooterConstants.holderSpeedOut);
+        });
+    }
+
     public Command stop() {
         return runOnce(() -> {
             holdingMotor.set(ControlMode.PercentOutput, 0);
