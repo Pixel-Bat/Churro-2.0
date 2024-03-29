@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 0.765872873427322,
+      "y": 4.3029049206577845
+    },
+    "rotation": 120.96375653207355
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -85,6 +91,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker To Exit"
           }
         }
       ]

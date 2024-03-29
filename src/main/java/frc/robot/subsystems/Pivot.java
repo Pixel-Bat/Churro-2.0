@@ -85,19 +85,19 @@ public class Pivot extends SubsystemBase{
 
         setPivotAngle(PivotConstants.positions.intakeHeight);
 
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Height", intakeCheckBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Height", speakerCheckBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Height", intakeCheckBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Height", speakerCheckBoolSupplier);
 
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Up", intakeUpBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Up", speakerUpBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Down", intakeDownBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Down", speakerDownBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Up", intakeUpBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Up", speakerUpBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Down", intakeDownBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Down", speakerDownBoolSupplier);
 
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("Pivot Output", outputSupplier);
 
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("Angle", encoderAngle);
         
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("EncoderMargin", encoderMarginSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("EncoderMargin", encoderMarginSupplier);
 
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Pivot", m_encoder);
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("PID", this.leftPivotController);

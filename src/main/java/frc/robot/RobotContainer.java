@@ -55,12 +55,13 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandPS5Controller driveController = new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
   public static final CommandJoystick operatorController = new CommandJoystick(OperatorConstants.kOperatorControllerPort);
-  private final SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+  private final SendableChooser<Command> autoChooser; // Default auto will be `Commands.none()`
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     defineAutoCommands();
+    autoChooser = AutoBuilder.buildAutoChooser();
     setupDefaultCommands();
     configureBindings();
     setupAutoChoosers();
@@ -74,8 +75,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("shootNote", noteHolder.shootNoEnd());
     NamedCommands.registerCommand("stopShooter", new StopShooter(shooter));
     NamedCommands.registerCommand("stopHolder", new StopHolder(noteHolder));
-    NamedCommands.registerCommand("groundIntakeStart", new GroundIntakeStart(pivot, shooter, noteHolder, bumperIntake));
-    NamedCommands.registerCommand("groundIntakeStop", new GroundIntakeEnd(shooter, noteHolder, bumperIntake));
+    NamedCommands.registerCommand("groundIntakeStart", groundintake.intake());
+    NamedCommands.registerCommand("groundIntakeStop", groundintake.stop());
   }
 
   private void setupDefaultCommands(){
@@ -91,7 +92,6 @@ public class RobotContainer {
 
     powerHub.setDefaultCommand(powerHub.retract());
   }
-
   private void configureBindings() {
     operatorController.button(1).whileTrue(shooter.shoot());
     operatorController.button(2).whileTrue(shooter.intake());
@@ -99,7 +99,8 @@ public class RobotContainer {
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());
 
-    operatorController.button(11).whileTrue(pivot.intakePos());
+    operatorController.button(11).whileTrue(pivot.intakePos())
+    ;
     operatorController.button(8).whileTrue(pivot.ampPos());
     operatorController.button(12).whileTrue(pivot.speakerPos());
     operatorController.button(10).whileTrue(pivot.sourcePos());
