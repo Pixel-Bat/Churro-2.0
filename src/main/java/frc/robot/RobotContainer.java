@@ -73,6 +73,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("setShootPos", pivot.speakerPos());
     NamedCommands.registerCommand("startShooter", shooter.shootNoEnd());
     NamedCommands.registerCommand("shootNote", noteHolder.shootNoEnd());
+    NamedCommands.registerCommand("intakeNote", noteHolder.intakeNoEnd());
     NamedCommands.registerCommand("stopShooter", new StopShooter(shooter));
     NamedCommands.registerCommand("stopHolder", new StopHolder(noteHolder));
     NamedCommands.registerCommand("groundIntakeStart", groundintake.intake());

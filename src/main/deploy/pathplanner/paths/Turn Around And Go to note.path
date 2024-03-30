@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.74865716545412,
-        "y": 6.858954768165612
+        "x": 1.478126991341702,
+        "y": 7.4871105882562645
       },
       "isLocked": false,
       "linkedName": "Turn Around Point"
@@ -20,8 +20,8 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 2.146327011795348,
-        "y": 7.812782995870107
+        "x": 2.8202300264249653,
+        "y": 7.985865094537207
       },
       "nextControl": null,
       "isLocked": false,

@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.419159453703524,
-        "y": 4.09478126648561
+        "x": 2.6841875081753006,
+        "y": 4.075371117931965
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6002032004064024,
-        "y": 4.084914323674802
+        "x": 1.8652312548781789,
+        "y": 4.065504175121157
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3 Note Auto Waypoint 2"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3 Note Auto Waypoint 3"
     }
   ],
   "rotationTargets": [],
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": true,
-  "folder": null,
+  "folder": "3 Note Auto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
