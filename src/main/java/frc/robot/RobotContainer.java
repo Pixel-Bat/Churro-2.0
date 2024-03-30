@@ -73,7 +73,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("setShootPos", pivot.speakerPos());
     NamedCommands.registerCommand("startShooter", shooter.shootNoEnd());
     NamedCommands.registerCommand("shootNote", noteHolder.shootNoEnd());
-    NamedCommands.registerCommand("intakeNote", noteHolder.intakeNoEnd());
+    NamedCommands.registerCommand("intakeNote", shooter.intakeNoEnd());
     NamedCommands.registerCommand("stopShooter", new StopShooter(shooter));
     NamedCommands.registerCommand("stopHolder", new StopHolder(noteHolder));
     NamedCommands.registerCommand("groundIntakeStart", groundintake.intake());
@@ -128,6 +128,7 @@ public class RobotContainer {
     new PathPlannerAuto("2024 ONT McMaster Auto 1");
     new PathPlannerAuto("2024 ONT McMaster Auto 2 (Test)");
     new PathPlannerAuto("NO MOVEMENT TESTING ONLY");
+    new PathPlannerAuto("1 Note Bottom");
     SmartDashboard.putData("Auto Mode", autoChooser);
     Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Auto Mode", autoChooser);
   }

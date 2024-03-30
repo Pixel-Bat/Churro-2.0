@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 6.5
+        "x": 1.6413557388518287,
+        "y": 6.516806366946068
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.478126991341702,
-        "y": 7.4871105882562645
+        "x": 1.323966507582138,
+        "y": 7.305745313245013
       },
       "isLocked": false,
       "linkedName": "Turn Around Point"
     },
     {
       "anchor": {
-        "x": 2.9,
-        "y": 7.0
+        "x": 2.8837078726760743,
+        "y": 7.00649260947842
       },
       "prevControl": {
-        "x": 2.8202300264249653,
-        "y": 7.985865094537207
+        "x": 2.3940216301485235,
+        "y": 7.187857884487699
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "2 Note Auto Top",
   "previewStartingState": {
-    "rotation": -166.504266719204,
+    "rotation": -7.7218258001310565,
     "velocity": 0
   },
   "useDefaultConstraints": true

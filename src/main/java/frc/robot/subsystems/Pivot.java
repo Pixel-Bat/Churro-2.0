@@ -165,11 +165,11 @@ public class Pivot extends SubsystemBase{
 
     public void runPID() {
         output = leftPivotController.calculate(encoderInDegrees());
-        if (output > 0.4)
-        output = 0.4;
+        if (output > 0.55)
+        output = 0.55;
 
-        if (output < -0.4)
-            output = -0.4;
+        if (output < -0.55)
+            output = -0.55;
 
         m_leftPivot.set(-output);
     }
