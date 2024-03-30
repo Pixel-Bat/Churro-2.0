@@ -68,6 +68,7 @@ public final class Constants {
 
     public static final double holderSpeedIn = -0.75;
     public static final double holderSpeedOut = 0.75;
+    public static final double holderSpeedAmp = 0.25;
   }
 
   public static class BumperConstants {
