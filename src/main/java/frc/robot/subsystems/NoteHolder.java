@@ -47,7 +47,6 @@ public class NoteHolder extends SubsystemBase{
     }
 
     public Command shootNoEnd() {
-        System.out.println("here");
         return run(() -> {
             holdingMotor.set(ControlMode.PercentOutput, ShooterConstants.holderSpeedOut);
         });

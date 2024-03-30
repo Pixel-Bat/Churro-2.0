@@ -83,9 +83,9 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new ArcadeDrive(
         drivetrain,
-        // () -> 1.2 * Math.pow(-this.driveController.getLeftY(), 3),
+        () -> (Math.pow(-this.driveController.getLeftY(), 3))*1.1,
         // () -> Math.pow(this.driveController.getRightX(), 3)
-        () -> -this.driveController.getLeftY() / 1.2,
+        // () -> (-this.driveController.getLeftY() / 1.2) * 1.1,
         () -> this.driveController.getRightX()/1.05
       )
     );
@@ -98,9 +98,9 @@ public class RobotContainer {
     operatorController.button(3).whileTrue(shooter.amp());
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());
+    operatorController.button(9).whileTrue(bumperIntake.release());
 
-    operatorController.button(11).whileTrue(pivot.intakePos())
-    ;
+    operatorController.button(11).whileTrue(pivot.intakePos());
     operatorController.button(8).whileTrue(pivot.ampPos());
     operatorController.button(12).whileTrue(pivot.speakerPos());
     operatorController.button(10).whileTrue(pivot.sourcePos());

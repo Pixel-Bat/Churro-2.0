@@ -19,7 +19,7 @@ import frc.robot.Constants.RobotConstants;
 public class Pivot extends SubsystemBase{
 
     private final CANSparkMax m_leftPivot = new CANSparkMax(PivotID.leftPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-    //private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+    private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
 
     private final DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
 
@@ -55,18 +55,18 @@ public class Pivot extends SubsystemBase{
 
         // factory reset spark max
         m_leftPivot.restoreFactoryDefaults();
-        //m_rightPivot.restoreFactoryDefaults();
+        m_rightPivot.restoreFactoryDefaults();
 
         // set current limit for spark max
         m_leftPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
-        //m_rightPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+        m_rightPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
 
 
         // invert right pivot motor
-        //m_rightPivot.setInverted(true);
+        m_rightPivot.setInverted(false);
         m_leftPivot.setInverted(false);
         
-        //m_rightPivot.follow(m_leftPivot, true);
+        m_rightPivot.follow(m_leftPivot, true);
         m_encoder.setDistancePerRotation(360/2);
         intakeCheckBoolSupplier = () -> intakeBool;
         speakerCheckBoolSupplier = () -> speakerBool;

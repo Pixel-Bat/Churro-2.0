@@ -66,16 +66,15 @@ public final class Constants {
     public static final double shooterSpeedOut = 1;
     public static final double ampSpeedOut = 0.1;
 
-    public static final double holderSpeedIn = -0.5;
-    public static final double holderSpeedOut = 0.5;
+    public static final double holderSpeedIn = -0.75;
+    public static final double holderSpeedOut = 0.75;
   }
 
   public static class BumperConstants {
 
-    public static final int bumperCurrentLimit = 60;
 
-    public static final double bumperSpeedIn = 0.85;
-    public static final double bumperSpeedOut = -0.5;
+    public static final double bumperSpeedIn = 1;
+    public static final double bumperSpeedOut = -1;
     //public static final double ampSpeedOut = 0.1;
 
     //public static final double holderSpeedIn = -0.5;
