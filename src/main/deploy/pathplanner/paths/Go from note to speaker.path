@@ -1,0 +1,89 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.8837078726760743,
+        "y": 7.00649260947842
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.0353773690003525,
+        "y": 6.580284213200006
+      },
+      "isLocked": false,
+      "linkedName": "Pick Up Note"
+    },
+    {
+      "anchor": {
+        "x": 1.4267285779652068,
+        "y": 5.53650223579517
+      },
+      "prevControl": {
+        "x": 2.0584958713777075,
+        "y": 5.528365618134744
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "deadline",
+              "data": {
+                "commands": [
+                  {
+                    "type": "wait",
+                    "data": {
+                      "waitTime": 0.1
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "setShootPos"
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "startShooter"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.6,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "2 Note Auto Top",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7511871911042578,
+        "y": 6.740728186286426
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.0881916500675106,
+        "y": 6.952083026973072
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.6413557388518287,
+        "y": 6.516806366946068
+      },
+      "prevControl": {
+        "x": 1.4871952550922647,
+        "y": 6.933946499471947
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Turn Around Point"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.6,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": true,
+  "folder": "2 Note Auto Top",
+  "previewStartingState": {
+    "rotation": 59.036243467926475,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

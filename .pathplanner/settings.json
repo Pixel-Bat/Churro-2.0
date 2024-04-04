@@ -1,11 +1,18 @@
 {
-  "robotWidth": 0.69,
-  "robotLength": 0.81,
+  "robotWidth": 0.88,
+  "robotLength": 1.02,
   "holonomicMode": false,
   "pathFolders": [
-    "New Folder"
+    "2 Note Auto Top",
+    "3 Note Auto",
+    "Old Paths",
+    "Testing Paths"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Good Autos",
+    "Testing Autos",
+    "Old Autos"
+  ],
   "defaultMaxVel": 2.6,
   "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 540.0,

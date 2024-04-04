@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.6413557388518287,
+        "y": 6.516806366946068
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.323966507582138,
+        "y": 7.305745313245013
+      },
+      "isLocked": false,
+      "linkedName": "Turn Around Point"
+    },
+    {
+      "anchor": {
+        "x": 2.8837078726760743,
+        "y": 7.00649260947842
+      },
+      "prevControl": {
+        "x": 2.3940216301485235,
+        "y": 7.187857884487699
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Pick Up Note"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.6,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "2 Note Auto Top",
+  "previewStartingState": {
+    "rotation": -7.7218258001310565,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

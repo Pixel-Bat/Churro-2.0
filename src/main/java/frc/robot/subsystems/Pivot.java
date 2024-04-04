@@ -19,7 +19,7 @@ import frc.robot.Constants.RobotConstants;
 public class Pivot extends SubsystemBase{
 
     private final CANSparkMax m_leftPivot = new CANSparkMax(PivotID.leftPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
-    //private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+    private final CANSparkMax m_rightPivot = new CANSparkMax(PivotID.rightPivotMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
 
     private final DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
 
@@ -49,22 +49,24 @@ public class Pivot extends SubsystemBase{
 
     private double output = 0;
 
+    
+
     public Pivot() {
 
         // factory reset spark max
         m_leftPivot.restoreFactoryDefaults();
-        //m_rightPivot.restoreFactoryDefaults();
+        m_rightPivot.restoreFactoryDefaults();
 
         // set current limit for spark max
         m_leftPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
-        //m_rightPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
+        m_rightPivot.setSmartCurrentLimit(RobotConstants.driveCurrentLimit);
 
 
         // invert right pivot motor
-        //m_rightPivot.setInverted(true);
+        m_rightPivot.setInverted(false);
         m_leftPivot.setInverted(false);
         
-        //m_rightPivot.follow(m_leftPivot, true);
+        m_rightPivot.follow(m_leftPivot, true);
         m_encoder.setDistancePerRotation(360/2);
         intakeCheckBoolSupplier = () -> intakeBool;
         speakerCheckBoolSupplier = () -> speakerBool;
@@ -81,19 +83,21 @@ public class Pivot extends SubsystemBase{
 
         leftPivotController.setTolerance(encoderMargins, 0.04);
 
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Height", intakeCheckBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Height", speakerCheckBoolSupplier);
+        setPivotAngle(PivotConstants.positions.intakeHeight);
 
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Up", intakeUpBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Up", speakerUpBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Down", intakeDownBoolSupplier);
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Down", speakerDownBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Height", intakeCheckBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Height", speakerCheckBoolSupplier);
+
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Up", intakeUpBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Up", speakerUpBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Source Down", intakeDownBoolSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addBoolean("Speaker Down", speakerDownBoolSupplier);
 
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("Pivot Output", outputSupplier);
 
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("Angle", encoderAngle);
         
-        Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("EncoderMargin", encoderMarginSupplier);
+        // Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).addNumber("EncoderMargin", encoderMarginSupplier);
 
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Pivot", m_encoder);
         Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("PID", this.leftPivotController);
@@ -137,7 +141,7 @@ public class Pivot extends SubsystemBase{
         // SmartDashboard.putData(this.controller);
         encoderAngle = () -> encoderInDegrees();
         encoderMarginSupplier = () -> encoderMargins;
-        //setPivotAngle(-RobotContainer.operatorController.getY());
+        runPID();
         outputSupplier = () -> output;
     }
 
@@ -154,15 +158,20 @@ public class Pivot extends SubsystemBase{
     public void setPivotAngle(double input) {
        // if (encoderInDegrees() > PivotConstants.positions.minPos && encoderInDegrees() < PivotConstants.positions.maxPos) {
             // Should be (encoderValue, then setpoint)
-            output = leftPivotController.calculate(encoderInDegrees(), input);
-            if (output > 0.4)
-            output = 0.4;
-
-            if (output < -0.4)
-                output = -0.4;
-
-            m_leftPivot.set(-output);
+            leftPivotController.setSetpoint(input);
+            
         //}
+    }
+
+    public void runPID() {
+        output = leftPivotController.calculate(encoderInDegrees());
+        if (output > 0.55)
+        output = 0.55;
+
+        if (output < -0.55)
+            output = -0.55;
+
+        m_leftPivot.set(-output);
     }
 
 
@@ -187,6 +196,18 @@ public class Pivot extends SubsystemBase{
     public Command intakePos() {
         return run(() -> {
             setPivotAngle(PivotConstants.positions.intakeHeight);
+        });
+    }
+
+    public Command flatPos() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.flatHeight);
+        });
+    }
+
+    public Command ampPos2() {
+        return run(() -> {
+            setPivotAngle(PivotConstants.positions.ampHeight2);
         });
     }
 }

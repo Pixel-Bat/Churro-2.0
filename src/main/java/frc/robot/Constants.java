@@ -66,16 +66,16 @@ public final class Constants {
     public static final double shooterSpeedOut = 1;
     public static final double ampSpeedOut = 0.1;
 
-    public static final double holderSpeedIn = -0.5;
-    public static final double holderSpeedOut = 0.5;
+    public static final double holderSpeedIn = -0.75;
+    public static final double holderSpeedOut = 0.75;
+    public static final double holderSpeedAmp = 0.25;
   }
 
   public static class BumperConstants {
 
-    public static final int bumperCurrentLimit = 60;
 
-    public static final double bumperSpeedIn = -0.6;
-    public static final double bumperSpeedOut = 1;
+    public static final double bumperSpeedIn = 1;
+    public static final double bumperSpeedOut = -1;
     //public static final double ampSpeedOut = 0.1;
 
     //public static final double holderSpeedIn = -0.5;
@@ -104,10 +104,14 @@ public final class Constants {
       public static final double speakerHeightMin = 70.5;
       public static final double speakerHeightMax = 73;
 
-      public static final double speakerHeight = 154;
-      public static final double sourceHeight = 117;
-      public static final double ampHeight = 140;
-      public static final double intakeHeight = 20;
+      public static final double speakerHeight = 151;
+      public static final double sourceHeight = 128;
+      public static final double ampHeight = 137;
+      public static final double ampHeight2 = 112;
+      public static final double intakeHeight = 17;
+
+      public static final double flatHeight = 91;
+
     }
   }
 

@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.8690078435791664,
+        "y": 3.4078534348224188
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.5248146901429311,
+        "y": 4.087081954477746
+      },
+      "isLocked": false,
+      "linkedName": "3 Note Auto Waypoint 5"
+    },
+    {
+      "anchor": {
+        "x": 2.625633325446393,
+        "y": 5.246454772510115
+      },
+      "prevControl": {
+        "x": 2.2743082290729473,
+        "y": 4.848286329953544
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "3 Note Auto Waypoint 6"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.6,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "3 Note Auto",
+  "previewStartingState": {
+    "rotation": 43.363422958383254,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

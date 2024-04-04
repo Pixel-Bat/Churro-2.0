@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.PathPlannerTrajectory;
 import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
@@ -191,6 +194,7 @@ public class Drivetrain extends SubsystemBase{
     }
 
     public void resetOdometry(Pose2d pose) {
+        
         m_odometry.resetPosition(m_gyro.getRotation2d(), getRightEncoderMeters(), getLeftEncoderMeters(), pose);
     }
 
