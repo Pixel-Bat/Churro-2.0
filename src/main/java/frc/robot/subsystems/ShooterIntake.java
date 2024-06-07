@@ -6,7 +6,9 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants.MotorCANID.IntakeID;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotConstants;
 import frc.robot.Constants.ShooterConstants;
 
@@ -16,6 +18,8 @@ public class ShooterIntake extends SubsystemBase{
     
 
     private final CANSparkMax m_shooterMotor = new CANSparkMax(IntakeID.shooterMotorCANID, CANSparkLowLevel.MotorType.kBrushless);
+
+    public static final CommandJoystick operatorController = new CommandJoystick(OperatorConstants.kOperatorControllerPort);
 
     
 
@@ -41,7 +45,7 @@ public class ShooterIntake extends SubsystemBase{
 
     public Command shoot() {
         return runEnd(() -> {
-            m_shooterMotor.set(ShooterConstants.shooterSpeedOut);
+            m_shooterMotor.set(ShooterConstants.shooterSpeedOut * Math.abs(operatorController.getRawAxis(3) - 1));
         }, () -> {
             m_shooterMotor.set(0);
         });

@@ -96,6 +96,7 @@ public class RobotContainer {
   private void configureBindings() {
     operatorController.button(1).whileTrue(shooter.shoot());
     operatorController.button(2).whileTrue(shooter.intake());
+    operatorController.button(2).whileTrue(bumperIntake.intake());
     operatorController.button(3).whileTrue(shooter.amp());
     operatorController.button(4).whileTrue(noteHolder.shoot());
     operatorController.button(6).whileTrue(noteHolder.intake());

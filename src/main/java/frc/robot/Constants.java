@@ -108,10 +108,9 @@ public final class Constants {
       public static final double sourceHeight = 128;
       public static final double ampHeight = 137;
       public static final double ampHeight2 = 112;
-      public static final double intakeHeight = 17;
+      public static final double intakeHeight = 16;
 
       public static final double flatHeight = 91;
-
     }
   }
 
