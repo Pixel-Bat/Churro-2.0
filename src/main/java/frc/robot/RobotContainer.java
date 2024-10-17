@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
+import frc.robot.commands.test.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -56,6 +57,9 @@ public class RobotContainer {
   private final CommandPS5Controller driveController = new CommandPS5Controller(OperatorConstants.kDriverControllerPort);
   public static final CommandJoystick operatorController = new CommandJoystick(OperatorConstants.kOperatorControllerPort);
   private final SendableChooser<Command> autoChooser; // Default auto will be `Commands.none()`
+
+  
+  private final SendableChooser<Command> testChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -132,6 +136,14 @@ public class RobotContainer {
     new PathPlannerAuto("1 Note Bottom");
     SmartDashboard.putData("Auto Mode", autoChooser);
     Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Auto Mode", autoChooser);
+  }
+
+  private void setupTestChoosers(){
+
+    testChooser.addOption("All Systems", new TestSystems(pivot,shooter, noteHolder, groundintake));
+    testChooser.addOption("Pivot", new TestPivot(pivot));
+
+    Shuffleboard.getTab(OperatorConstants.operatorShuffleboardTab).add("Test Mode", testChooser);
   }
 
   /**
