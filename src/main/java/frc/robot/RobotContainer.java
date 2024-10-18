@@ -69,6 +69,7 @@ public class RobotContainer {
     setupDefaultCommands();
     configureBindings();
     setupAutoChoosers();
+    setupTestChoosers();
   }
 
   public void defineAutoCommands() {

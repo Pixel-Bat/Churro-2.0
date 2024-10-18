@@ -39,7 +39,7 @@ public class TestPivot extends Command {
       }
     }
 
-    if(!checkedIntake){
+    if(!checkedIntake && checkedSpeaker){
       m_pivot.setPivotAngle(PivotConstants.positions.intakeHeight);
 
       if(m_pivot.encoderInDegrees() <= PivotConstants.positions.intakeHeight + 5 || m_pivot.encoderInDegrees() >= PivotConstants.positions.intakeHeight - 5){
