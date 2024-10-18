@@ -89,10 +89,10 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new ArcadeDrive(
         drivetrain,
-        () -> (Math.pow(-this.driveController.getLeftY(), 3))*1.1,
-        // () -> Math.pow(this.driveController.getRightX(), 3)
-        // () -> (-this.driveController.getLeftY() / 1.2) * 1.1,
-        () -> this.driveController.getRightX()/1.05
+        () -> (Math.pow(-this.driveController.getLeftY(), 3))*0.4,
+
+        // () -> this.driveController.getRightX()/1.05 // for PS5
+        () -> this.driveController.getRawAxis(4)/2.5 // for logitech
       )
     );
 
@@ -115,10 +115,10 @@ public class RobotContainer {
     operatorController.button(7).whileTrue(pivot.ampPos2());
     
 
-    driveController.button(6).whileTrue(bumperIntake.intake()); 
-    driveController.button(6).whileTrue(shooter.intake());
+    // driveController.button(6).whileTrue(bumperIntake.intake()); 
+    // driveController.button(6).whileTrue(shooter.intake());
     
-    driveController.button(5).whileTrue(pivot.intakePos()); 
+    // driveController.button(5).whileTrue(pivot.intakePos()); 
     //New code
 
     //operatorController.button(7).whileTrue(groundintake.groundIn());
